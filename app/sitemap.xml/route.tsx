@@ -4,12 +4,16 @@ const URLS = [
   { url: "/faq", priority: "0.8", changefreq: "monthly" },
   { url: "/About", priority: "0.7", changefreq: "monthly" },
   { url: "/revisions", priority: "0.6", changefreq: "monthly" },
-  { url: "/3D-architecture-visualization-studio", priority: "0.9", changefreq: "weekly" },
-]
+  {
+    url: "/3D-architecture-visualization-studio",
+    priority: "0.9",
+    changefreq: "weekly",
+  },
+];
 
 export async function GET(request: Request) {
-  const { origin } = new URL(request.url)
-  const lastmod = new Date().toISOString()
+  const { origin } = new URL(request.url);
+  const lastmod = new Date().toISOString();
 
   const body = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
@@ -19,14 +23,14 @@ ${URLS.map(
     <lastmod>${lastmod}</lastmod>
     <changefreq>${changefreq}</changefreq>
     <priority>${priority}</priority>
-  </url>`,
+  </url>`
 ).join("\n")}
-</urlset>`
+</urlset>`;
 
   return new Response(body, {
     headers: {
       "Content-Type": "application/xml; charset=utf-8",
       "Cache-Control": "public, max-age=3600",
     },
-  })
+  });
 }

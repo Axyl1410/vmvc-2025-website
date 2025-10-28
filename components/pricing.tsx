@@ -7,8 +7,14 @@ import {
   CardFooter,
   CardHeader,
 } from "@/components/ui/card";
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { CheckCircle2 } from "lucide-react";
 import Link from "next/link";
+import { useRef } from "react";
+
+gsap.registerPlugin(ScrollTrigger);
 
 type Feature = { text: string; muted?: boolean };
 
@@ -28,17 +34,145 @@ function FeatureItem({ text, muted = false }: Feature) {
 }
 
 export function Pricing() {
+  const sectionRef = useRef<HTMLElement>(null);
+
+  useGSAP(
+    () => {
+      // Animate badge and heading
+      gsap.fromTo(
+        ".pricing-badge",
+        { scale: 0.8, opacity: 0 },
+        {
+          scale: 1,
+          opacity: 1,
+          duration: 0.6,
+          ease: "back.out(1.7)",
+          scrollTrigger: {
+            trigger: ".pricing-header",
+            start: "top 80%",
+            toggleActions: "play none none none",
+          },
+        }
+      );
+
+      gsap.fromTo(
+        ".pricing-heading",
+        { y: 30, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 0.8,
+          delay: 0.2,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: ".pricing-header",
+            start: "top 80%",
+            toggleActions: "play none none none",
+          },
+        }
+      );
+
+      gsap.fromTo(
+        ".pricing-description",
+        { y: 20, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 0.6,
+          delay: 0.4,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: ".pricing-header",
+            start: "top 80%",
+            toggleActions: "play none none none",
+          },
+        }
+      );
+
+      gsap.fromTo(
+        ".pricing-button",
+        { scale: 0.9, opacity: 0 },
+        {
+          scale: 1,
+          opacity: 1,
+          duration: 0.5,
+          delay: 0.6,
+          ease: "back.out(1.7)",
+          scrollTrigger: {
+            trigger: ".pricing-header",
+            start: "top 80%",
+            toggleActions: "play none none none",
+          },
+        }
+      );
+
+      // Animate pricing cards
+      gsap.fromTo(
+        ".pricing-card",
+        { y: 80, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          stagger: 0.15,
+          duration: 0.8,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: ".pricing-grid",
+            start: "top 80%",
+            toggleActions: "play none none none",
+          },
+        }
+      );
+
+      // Animate evaluation section
+      gsap.fromTo(
+        ".evaluation-heading",
+        { y: 30, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 0.8,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: ".evaluation-section",
+            start: "top 80%",
+            toggleActions: "play none none none",
+          },
+        }
+      );
+
+      gsap.fromTo(
+        ".evaluation-card",
+        { y: 40, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          stagger: 0.1,
+          duration: 0.7,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: ".evaluation-grid",
+            start: "top 80%",
+            toggleActions: "play none none none",
+          },
+        }
+      );
+    },
+    { scope: sectionRef, dependencies: [] }
+  );
+
   return (
     <section
       className="text-white"
       id="pricing"
       itemScope
       itemType="https://schema.org/PriceSpecification"
+      ref={sectionRef}
     >
       <div className="container mx-auto px-4 py-16 sm:py-20">
-        <div className="mx-auto max-w-3xl text-center">
+        <div className="pricing-header mx-auto max-w-3xl text-center">
           <div
-            className="mx-auto mb-4 inline-flex items-center rounded-full px-3 py-1 font-medium text-white text-xs"
+            className="pricing-badge mx-auto mb-4 inline-flex items-center rounded-full px-3 py-1 font-medium text-white text-xs"
             style={{
               backgroundColor: "rgba(0, 0, 0, 0.6)",
               border: `1px solid ${ACCENT}`,
@@ -47,19 +181,19 @@ export function Pricing() {
             Giải Thưởng Cuộc Thi
           </div>
           <h2
-            className="font-extrabold text-4xl tracking-tight sm:text-5xl"
+            className="pricing-heading font-extrabold text-4xl tracking-tight sm:text-5xl"
             itemProp="name"
           >
             Cơ Cấu Giải Thưởng
           </h2>
           <p
-            className="mx-auto mt-2 max-w-xl text-neutral-300 text-sm"
+            className="pricing-description mx-auto mt-2 max-w-xl text-neutral-300 text-sm"
             itemProp="description"
           >
             Tổng giải thưởng 6 triệu đồng. Tất cả 8 đội vào chung kết đều nhận
             giấy chứng nhận.
           </p>
-          <div className="mt-6">
+          <div className="pricing-button mt-6">
             <Button
               asChild
               className="rounded-full px-5 text-neutral-900 hover:brightness-95"
@@ -70,10 +204,10 @@ export function Pricing() {
           </div>
         </div>
 
-        <div className="mt-10 grid gap-6 lg:grid-cols-3">
+        <div className="pricing-grid mt-10 grid gap-6 lg:grid-cols-3">
           {/* First Prize */}
           <Card
-            className="liquid-glass-enhanced relative overflow-hidden rounded-2xl border-2 border-lime-300/30 shadow-[0_16px_50px_rgba(0,0,0,0.4)] transition-all duration-300"
+            className="pricing-card liquid-glass-enhanced relative overflow-hidden rounded-2xl border-2 border-lime-300/30 shadow-[0_16px_50px_rgba(0,0,0,0.4)] transition-all duration-300"
             itemScope
             itemType="https://schema.org/Offer"
           >
@@ -191,7 +325,7 @@ export function Pricing() {
 
           {/* Second Prize */}
           <Card
-            className="liquid-glass relative overflow-hidden rounded-2xl shadow-[0_12px_40px_rgba(0,0,0,0.3)] transition-all duration-300"
+            className="pricing-card liquid-glass relative overflow-hidden rounded-2xl shadow-[0_12px_40px_rgba(0,0,0,0.3)] transition-all duration-300"
             itemScope
             itemType="https://schema.org/Offer"
           >
@@ -235,7 +369,7 @@ export function Pricing() {
 
           {/* Third Prize */}
           <Card
-            className="liquid-glass relative overflow-hidden rounded-2xl shadow-[0_12px_40px_rgba(0,0,0,0.3)] transition-all duration-300"
+            className="pricing-card liquid-glass relative overflow-hidden rounded-2xl shadow-[0_12px_40px_rgba(0,0,0,0.3)] transition-all duration-300"
             itemScope
             itemType="https://schema.org/Offer"
           >
@@ -280,13 +414,13 @@ export function Pricing() {
       </div>
 
       {/* Evaluation Criteria Section */}
-      <div className="container mx-auto mt-16 px-4">
+      <div className="evaluation-section container mx-auto mt-16 px-4">
         <div className="mx-auto max-w-4xl">
-          <h3 className="mb-8 text-center font-bold text-2xl text-white">
+          <h3 className="evaluation-heading mb-8 text-center font-bold text-2xl text-white">
             Tiêu Chí Chấm Điểm
           </h3>
-          <div className="grid gap-4 md:grid-cols-2">
-            <Card className="liquid-glass border border-white/20">
+          <div className="evaluation-grid grid gap-4 md:grid-cols-2">
+            <Card className="evaluation-card liquid-glass border border-white/20">
               <CardContent className="pt-6">
                 <div className="mb-2 flex items-center justify-between">
                   <h4 className="font-semibold text-sm text-white">
@@ -299,7 +433,7 @@ export function Pricing() {
                 </p>
               </CardContent>
             </Card>
-            <Card className="liquid-glass border border-white/20">
+            <Card className="evaluation-card liquid-glass border border-white/20">
               <CardContent className="pt-6">
                 <div className="mb-2 flex items-center justify-between">
                   <h4 className="font-semibold text-sm text-white">
@@ -312,7 +446,7 @@ export function Pricing() {
                 </p>
               </CardContent>
             </Card>
-            <Card className="liquid-glass border border-white/20">
+            <Card className="evaluation-card liquid-glass border border-white/20">
               <CardContent className="pt-6">
                 <div className="mb-2 flex items-center justify-between">
                   <h4 className="font-semibold text-sm text-white">
@@ -325,7 +459,7 @@ export function Pricing() {
                 </p>
               </CardContent>
             </Card>
-            <Card className="liquid-glass border border-white/20">
+            <Card className="evaluation-card liquid-glass border border-white/20">
               <CardContent className="pt-6">
                 <div className="mb-2 flex items-center justify-between">
                   <h4 className="font-semibold text-sm text-white">

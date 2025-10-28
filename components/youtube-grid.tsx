@@ -1,57 +1,63 @@
-"use client"
+"use client";
 
-import { useEffect, useRef, useState } from "react"
-import { Play, Pause } from "lucide-react"
+import { Pause, Play } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
 
-const ACCENT = "#C6FF3A"
+const ACCENT = "#C6FF3A";
 
 type YouTubeGridProps = {
-  videoIds: string[]
-}
+  videoIds: string[];
+};
 
 // Minimal typings to avoid runtime imports
 declare global {
   interface Window {
-    YT: any
-    onYouTubeIframeAPIReady: () => void
+    YT: any;
+    onYouTubeIframeAPIReady: () => void;
   }
 }
 
 export default function YouTubeGrid({ videoIds }: YouTubeGridProps) {
-  const containerIds = useRef(videoIds.map((_, i) => `yt-player-${i}-${Math.random().toString(36).slice(2)}`))
-  const playersRef = useRef<any[]>([])
-  const [apiReady, setApiReady] = useState(false)
-  const [playingIndex, setPlayingIndex] = useState<number | null>(null)
+  const containerIds = useRef(
+    videoIds.map(
+      (_, i) => `yt-player-${i}-${Math.random().toString(36).slice(2)}`
+    )
+  );
+  const playersRef = useRef<any[]>([]);
+  const [apiReady, setApiReady] = useState(false);
+  const [playingIndex, setPlayingIndex] = useState<number | null>(null);
 
   // Load IFrame API once
   useEffect(() => {
-    if (typeof window === "undefined") return
+    if (typeof window === "undefined") return;
 
-    const onReady = () => setApiReady(true)
+    const onReady = () => setApiReady(true);
 
     if (window.YT && window.YT.Player) {
-      onReady()
+      onReady();
     } else {
-      const existing = document.querySelector<HTMLScriptElement>('script[src="https://www.youtube.com/iframe_api"]')
+      const existing = document.querySelector<HTMLScriptElement>(
+        'script[src="https://www.youtube.com/iframe_api"]'
+      );
       if (!existing) {
-        const tag = document.createElement("script")
-        tag.src = "https://www.youtube.com/iframe_api"
-        document.body.appendChild(tag)
+        const tag = document.createElement("script");
+        tag.src = "https://www.youtube.com/iframe_api";
+        document.body.appendChild(tag);
       }
-      const prev = window.onYouTubeIframeAPIReady
+      const prev = window.onYouTubeIframeAPIReady;
       window.onYouTubeIframeAPIReady = () => {
-        prev?.()
-        onReady()
-      }
+        prev?.();
+        onReady();
+      };
     }
-  }, [])
+  }, []);
 
   // Build players when API is ready
   useEffect(() => {
-    if (!apiReady) return
+    if (!apiReady) return;
     // Clean up old players if any
-    playersRef.current.forEach((p) => p?.destroy?.())
-    playersRef.current = []
+    playersRef.current.forEach((p) => p?.destroy?.());
+    playersRef.current = [];
 
     containerIds.current.forEach((id, idx) => {
       const player = new window.YT.Player(id, {
@@ -71,62 +77,69 @@ export default function YouTubeGrid({ videoIds }: YouTubeGridProps) {
         },
         events: {
           onStateChange: (e: any) => {
-            const state = e?.data
-            const YTP = window.YT?.PlayerState
+            const state = e?.data;
+            const YTP = window.YT?.PlayerState;
             if (state === YTP?.PLAYING) {
               // Pause others
               playersRef.current.forEach((p, i) => {
                 if (i !== idx) {
                   try {
-                    p.pauseVideo()
+                    p.pauseVideo();
                   } catch {}
                 }
-              })
-              setPlayingIndex(idx)
-            } else if (state === YTP?.PAUSED || state === YTP?.ENDED || state === YTP?.CUED) {
-              setPlayingIndex((prev) => (prev === idx ? null : prev))
+              });
+              setPlayingIndex(idx);
+            } else if (
+              state === YTP?.PAUSED ||
+              state === YTP?.ENDED ||
+              state === YTP?.CUED
+            ) {
+              setPlayingIndex((prev) => (prev === idx ? null : prev));
             }
           },
         },
-      })
-      playersRef.current[idx] = player
-    })
+      });
+      playersRef.current[idx] = player;
+    });
 
     return () => {
-      playersRef.current.forEach((p) => p?.destroy?.())
-    }
+      playersRef.current.forEach((p) => p?.destroy?.());
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [apiReady, videoIds.join(",")])
+  }, [apiReady, videoIds.join(",")]);
 
   const handlePlay = (idx: number) => {
-    const player = playersRef.current[idx]
-    if (!player) return
+    const player = playersRef.current[idx];
+    if (!player) return;
     // Pause others first
     playersRef.current.forEach((p, i) => {
       if (i !== idx) {
         try {
-          p.pauseVideo()
+          p.pauseVideo();
         } catch {}
       }
-    })
+    });
     try {
-      player.playVideo()
+      player.playVideo();
     } catch {}
-  }
+  };
 
   const handlePause = (idx: number) => {
-    const player = playersRef.current[idx]
+    const player = playersRef.current[idx];
     try {
-      player.pauseVideo()
+      player.pauseVideo();
     } catch {}
-  }
+  };
 
   return (
     <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
       {containerIds.current.map((cid, idx) => (
-        <div key={cid} className="group relative overflow-hidden rounded-2xl liquid-glass">
+        <div
+          className="group liquid-glass relative overflow-hidden rounded-2xl"
+          key={cid}
+        >
           <div className="relative z-0 aspect-video">
-            <div id={cid} className="h-full w-full" />
+            <div className="h-full w-full" id={cid} />
           </div>
 
           {/* Hover gradient */}
@@ -136,8 +149,8 @@ export default function YouTubeGrid({ videoIds }: YouTubeGridProps) {
           <div className="pointer-events-none absolute inset-x-0 bottom-3 z-20 flex items-center justify-center">
             {playingIndex === idx ? (
               <button
+                className="liquid-glass-header pointer-events-auto rounded-full px-3 py-1 text-xs transition-colors"
                 onClick={() => handlePause(idx)}
-                className="pointer-events-auto rounded-full liquid-glass-header px-3 py-1 text-xs transition-colors"
                 style={{ color: ACCENT }}
               >
                 <span className="inline-flex items-center gap-1">
@@ -146,8 +159,8 @@ export default function YouTubeGrid({ videoIds }: YouTubeGridProps) {
               </button>
             ) : (
               <button
+                className="pointer-events-auto rounded-full px-3 py-1 font-medium text-black text-xs transition-colors"
                 onClick={() => handlePlay(idx)}
-                className="pointer-events-auto rounded-full px-3 py-1 text-xs font-medium text-black transition-colors"
                 style={{ backgroundColor: ACCENT }}
               >
                 <span className="inline-flex items-center gap-1">
@@ -159,5 +172,5 @@ export default function YouTubeGrid({ videoIds }: YouTubeGridProps) {
         </div>
       ))}
     </div>
-  )
+  );
 }

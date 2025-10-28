@@ -1,10 +1,10 @@
+import Script from "next/script";
 import { AppverseFooter } from "@/components/appverse-footer";
 import { Features } from "@/components/features";
 import { Hero } from "@/components/hero";
 import { LogoMarquee } from "@/components/logo-marquee";
 import { Pricing } from "@/components/pricing";
 import { SiteHeader } from "@/components/site-header";
-import Script from "next/script";
 
 // ✅ Force static generation for low TTFB
 export const dynamic = "force-static";
@@ -80,21 +80,21 @@ export default function Page() {
 
       {/* JSON-LD structured data */}
       <Script
-        id="prizes-structured-data"
-        type="application/ld+json"
-        strategy="afterInteractive"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify(prizesStructuredData),
         }}
+        id="prizes-structured-data"
+        strategy="afterInteractive"
+        type="application/ld+json"
       />
 
       <Script
-        id="page-structured-data"
-        type="application/ld+json"
-        strategy="afterInteractive"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify(pageStructuredData),
         }}
+        id="page-structured-data"
+        strategy="afterInteractive"
+        type="application/ld+json"
       />
     </>
   );

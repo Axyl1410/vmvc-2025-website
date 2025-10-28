@@ -80,23 +80,23 @@ export function LogoMarquee() {
     rowId: string;
   }) => (
     <div
-      className="shrink-0 mx-3"
+      className="mx-3 shrink-0"
       onMouseEnter={() => setPausedRow(rowId)}
       onMouseLeave={() => setPausedRow(null)}
     >
-      <div className="w-32 sm:w-36 lg:w-40 h-16 sm:h-18 lg:h-20 rounded-2xl liquid-glass border border-white/20 flex flex-col items-center justify-center gap-2 p-3 overflow-hidden hover:border-lime-300/50 transition-all duration-300 hover:shadow-[0_0_30px_rgba(132,204,22,0.2)]">
+      <div className="liquid-glass flex h-16 w-32 flex-col items-center justify-center gap-2 overflow-hidden rounded-2xl border border-white/20 p-3 transition-all duration-300 hover:border-lime-300/50 hover:shadow-[0_0_30px_rgba(132,204,22,0.2)] sm:h-18 sm:w-36 lg:h-20 lg:w-40">
         {tech.logo && (
-          <div className="relative w-8 h-8 sm:w-10 sm:h-10">
+          <div className="relative h-8 w-8 sm:h-10 sm:w-10">
             <Image
-              src={tech.logo}
               alt={`${tech.name} logo`}
-              fill
               className="object-contain"
+              fill
               sizes="40px"
+              src={tech.logo}
             />
           </div>
         )}
-        <span className="text-white font-bold text-xs sm:text-sm text-center">
+        <span className="text-center font-bold text-white text-xs sm:text-sm">
           {tech.name}
         </span>
       </div>
@@ -104,15 +104,15 @@ export function LogoMarquee() {
   );
 
   return (
-    <section className="text-white py-16 sm:py-20 overflow-hidden">
+    <section className="overflow-hidden py-16 text-white sm:py-20">
       <div className="container mx-auto px-4">
         {/* Header */}
-        <div className="flex flex-col items-center justify-center mb-12 text-center">
-          <h2 className="text-4xl font-extrabold tracking-tight text-white sm:text-5xl">
+        <div className="mb-12 flex flex-col items-center justify-center text-center">
+          <h2 className="font-extrabold text-4xl text-white tracking-tight sm:text-5xl">
             Công Nghệ & Kỹ Năng{" "}
             <span className="text-lime-300">Được Khuyến Khích</span>
           </h2>
-          <p className="mt-4 text-sm text-neutral-300 max-w-2xl">
+          <p className="mt-4 max-w-2xl text-neutral-300 text-sm">
             Sử dụng bất kỳ ngôn ngữ lập trình và công cụ AI nào để hoàn thành dự
             án
           </p>
@@ -122,12 +122,12 @@ export function LogoMarquee() {
         <div className="relative space-y-6">
           {/* First Row - Programming Languages */}
           <div>
-            <h3 className="text-sm font-semibold text-lime-300 mb-3 text-center">
+            <h3 className="mb-3 text-center font-semibold text-lime-300 text-sm">
               Ngôn Ngữ Lập Trình
             </h3>
-            <div className="flex overflow-hidden mask-[linear-gradient(to_right,transparent,black_10%,black_90%,transparent)]">
+            <div className="mask-[linear-gradient(to_right,transparent,black_10%,black_90%,transparent)] flex overflow-hidden">
               <div
-                className={`flex animate-scroll-right whitespace-nowrap`}
+                className={"flex animate-scroll-right whitespace-nowrap"}
                 style={{
                   animationPlayState:
                     pausedRow === "first" ? "paused" : "running",
@@ -138,8 +138,8 @@ export function LogoMarquee() {
                   (tech, index) => (
                     <TechCard
                       key={`first-${index}`}
-                      tech={tech}
                       rowId="first"
+                      tech={tech}
                     />
                   )
                 )}
@@ -149,12 +149,12 @@ export function LogoMarquee() {
 
           {/* Second Row - AI Tools */}
           <div>
-            <h3 className="text-sm font-semibold text-lime-300 mb-3 text-center">
+            <h3 className="mb-3 text-center font-semibold text-lime-300 text-sm">
               Công Cụ AI
             </h3>
-            <div className="flex overflow-hidden mask-[linear-gradient(to_right,transparent,black_10%,black_90%,transparent)]">
+            <div className="mask-[linear-gradient(to_right,transparent,black_10%,black_90%,transparent)] flex overflow-hidden">
               <div
-                className={`flex animate-scroll-left whitespace-nowrap`}
+                className={"flex animate-scroll-left whitespace-nowrap"}
                 style={{
                   animationPlayState:
                     pausedRow === "second" ? "paused" : "running",
@@ -164,8 +164,8 @@ export function LogoMarquee() {
                 {[...aiTools, ...aiTools, ...aiTools].map((tool, index) => (
                   <TechCard
                     key={`second-${index}`}
-                    tech={tool}
                     rowId="second"
+                    tech={tool}
                   />
                 ))}
               </div>

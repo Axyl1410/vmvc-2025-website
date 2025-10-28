@@ -1,5 +1,5 @@
 export async function GET(request: Request) {
-  const { origin } = new URL(request.url)
+  const { origin } = new URL(request.url);
 
   const lines = [
     "# robots.txt for Skitbit — allow AI crawlers and search engines",
@@ -49,12 +49,12 @@ export async function GET(request: Request) {
     "Disallow: /t&c",
     "",
     `Sitemap: ${origin}/sitemap.xml`,
-  ].join("\n")
+  ].join("\n");
 
   return new Response(lines, {
     headers: {
       "Content-Type": "text/plain; charset=utf-8",
       "Cache-Control": "public, max-age=3600",
     },
-  })
+  });
 }

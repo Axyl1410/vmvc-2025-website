@@ -185,7 +185,12 @@ export default function FAQPage() {
                   </h2>
                   <p className="text-neutral-300">
                     Mỗi đội gồm 2 thành viên đăng ký chính thức qua{" "}
-                    <a className="text-lime-300 underline" href="/#register">
+                    <a
+                      className="text-lime-300 underline"
+                      href={
+                        process.env.NEXT_PUBLIC_REGISTRATION_URL || "/#register"
+                      }
+                    >
                       link đăng ký
                     </a>{" "}
                     trên trang chủ. Đảm bảo điền đầy đủ thông tin của cả 2 thành

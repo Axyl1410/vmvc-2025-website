@@ -1,6 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
+import { isExternalRegistration, REGISTRATION_URL } from "@/lib/constants";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import Image from "next/image";
@@ -77,7 +78,11 @@ export function Hero() {
       asChild
       className="rounded-full bg-lime-400 px-6 text-black hover:bg-lime-300"
     >
-      <a href="#register" rel="noopener noreferrer">
+      <a
+        href={REGISTRATION_URL}
+        rel="noopener noreferrer"
+        {...(isExternalRegistration ? { target: "_blank" } : {})}
+      >
         Đăng Ký Ngay
       </a>
     </Button>

@@ -7,6 +7,7 @@ import {
   CardFooter,
   CardHeader,
 } from "@/components/ui/card";
+import { isExternalRegistration, REGISTRATION_URL } from "@/lib/constants";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -202,7 +203,14 @@ export function Pricing() {
               className="rounded-full px-5 text-neutral-900 hover:brightness-95"
               style={{ backgroundColor: "#f2f2f2" }}
             >
-              <Link href="#register">Đăng Ký Tham Gia</Link>
+              <Link
+                href={REGISTRATION_URL}
+                {...(isExternalRegistration
+                  ? { target: "_blank", rel: "noopener noreferrer" }
+                  : {})}
+              >
+                Đăng Ký Tham Gia
+              </Link>
             </Button>
           </div>
         </div>

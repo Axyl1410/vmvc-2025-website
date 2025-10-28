@@ -2,14 +2,15 @@
 
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import { isExternalRegistration, REGISTRATION_URL } from "@/lib/constants";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
-interface FooterContent {
+type FooterContent = {
   tagline: string;
   copyright: string;
-}
+};
 
 const defaultContent: FooterContent = {
   tagline:
@@ -29,8 +30,8 @@ export function AppverseFooter() {
         if (parsed.footer) {
           setContent(parsed.footer);
         }
-      } catch (error) {
-        console.error("Error parsing saved content:", error);
+      } catch {
+        // Silent error handling
       }
     }
   }, []);
@@ -44,7 +45,14 @@ export function AppverseFooter() {
             asChild
             className="rounded-full bg-lime-400 px-6 py-2 font-medium text-black text-sm shadow-[0_0_20px_rgba(163,230,53,0.35)] hover:bg-lime-300"
           >
-            <Link href="/#register">Đăng Ký Ngay</Link>
+            <Link
+              href={REGISTRATION_URL}
+              {...(isExternalRegistration
+                ? { target: "_blank", rel: "noopener noreferrer" }
+                : {})}
+            >
+              Đăng Ký Ngay
+            </Link>
           </Button>
         </div>
       </div>
@@ -146,7 +154,7 @@ export function AppverseFooter() {
                     { label: "Giải Thưởng", href: "/#pricing" },
                     { label: "FAQ", href: "/faq" },
                     { label: "Thể Lệ", href: "/t&c" },
-                    { label: "Đăng Ký", href: "/#register" },
+                    { label: "Đăng Ký", href: REGISTRATION_URL },
                   ].map((item) => (
                     <li key={item.href}>
                       <Link className="hover:text-lime-300" href={item.href}>

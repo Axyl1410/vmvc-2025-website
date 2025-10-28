@@ -15,6 +15,7 @@ import {
   NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { isExternalRegistration, REGISTRATION_URL } from "@/lib/constants";
 import {
   ChevronDown,
   FileText,
@@ -55,7 +56,7 @@ export function SiteHeader() {
     { href: "/About", label: "Về Cuộc Thi", icon: Info },
     { href: "#pricing", label: "Giải Thưởng", icon: Tag },
     { href: "/faq", label: "FAQ", icon: HelpCircle },
-    { href: "#register", label: "Đăng Ký", icon: FileText },
+    { href: REGISTRATION_URL, label: "Đăng Ký", icon: FileText },
   ];
 
   return (
@@ -128,7 +129,14 @@ export function SiteHeader() {
               asChild
               className="rounded-lg bg-lime-400 px-6 py-2.5 font-medium text-black transition-all hover:scale-[1.02] hover:bg-lime-300 hover:shadow-md"
             >
-              <Link href="#register">Đăng Ký Ngay</Link>
+              <Link
+                href={REGISTRATION_URL}
+                {...(isExternalRegistration
+                  ? { target: "_blank", rel: "noopener noreferrer" }
+                  : {})}
+              >
+                Đăng Ký Ngay
+              </Link>
             </Button>
           </div>
 
@@ -218,7 +226,14 @@ export function SiteHeader() {
                     asChild
                     className="w-full rounded-lg bg-lime-400 px-6 py-2.5 font-medium text-black transition-all hover:scale-[1.02] hover:bg-lime-300 hover:shadow-md"
                   >
-                    <Link href="#register">Đăng Ký Ngay</Link>
+                    <Link
+                      href={REGISTRATION_URL}
+                      {...(isExternalRegistration
+                        ? { target: "_blank", rel: "noopener noreferrer" }
+                        : {})}
+                    >
+                      Đăng Ký Ngay
+                    </Link>
                   </Button>
                 </div>
               </SheetContent>

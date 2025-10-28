@@ -16,6 +16,8 @@ import { useRef } from "react";
 
 gsap.registerPlugin(ScrollTrigger);
 
+const MOBILE_BREAKPOINT = 768;
+
 type Feature = { text: string; muted?: boolean };
 
 const ACCENT = "#C6FF3A";
@@ -38,125 +40,126 @@ export function Pricing() {
 
   useGSAP(
     () => {
-      // Animate badge and heading
-      gsap.fromTo(
-        ".pricing-badge",
-        { scale: 0.8, opacity: 0 },
-        {
-          scale: 1,
-          opacity: 1,
-          duration: 0.6,
-          ease: "back.out(1.7)",
-          scrollTrigger: {
-            trigger: ".pricing-header",
-            start: "top 80%",
-            toggleActions: "play none none none",
-          },
-        }
-      );
+      // Check if animations should run (disable on small screens)
+      const isMobile = window.innerWidth < MOBILE_BREAKPOINT;
 
-      gsap.fromTo(
-        ".pricing-heading",
-        { y: 30, opacity: 0 },
-        {
-          y: 0,
-          opacity: 1,
-          duration: 0.8,
-          delay: 0.2,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: ".pricing-header",
-            start: "top 80%",
-            toggleActions: "play none none none",
-          },
-        }
-      );
+      if (isMobile) {
+        // On mobile, just ensure everything is visible
+        gsap.set(
+          ".pricing-badge, .pricing-heading, .pricing-description, .pricing-button, .pricing-card, .evaluation-heading, .evaluation-card",
+          {
+            opacity: 1,
+            y: 0,
+            scale: 1,
+          }
+        );
+        return;
+      }
 
-      gsap.fromTo(
-        ".pricing-description",
-        { y: 20, opacity: 0 },
-        {
-          y: 0,
-          opacity: 1,
-          duration: 0.6,
-          delay: 0.4,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: ".pricing-header",
-            start: "top 80%",
-            toggleActions: "play none none none",
-          },
-        }
-      );
+      // Desktop animations - set initial states
+      gsap.set(".pricing-badge", { scale: 0.8, opacity: 0 });
+      gsap.set(".pricing-heading", { y: 30, opacity: 0 });
+      gsap.set(".pricing-description", { y: 20, opacity: 0 });
+      gsap.set(".pricing-button", { scale: 0.9, opacity: 0 });
+      gsap.set(".pricing-card", { y: 80, opacity: 0 });
+      gsap.set(".evaluation-heading", { y: 30, opacity: 0 });
+      gsap.set(".evaluation-card", { y: 40, opacity: 0 });
 
-      gsap.fromTo(
-        ".pricing-button",
-        { scale: 0.9, opacity: 0 },
-        {
-          scale: 1,
-          opacity: 1,
-          duration: 0.5,
-          delay: 0.6,
-          ease: "back.out(1.7)",
-          scrollTrigger: {
-            trigger: ".pricing-header",
-            start: "top 80%",
-            toggleActions: "play none none none",
-          },
-        }
-      );
+      // Animate badge
+      gsap.to(".pricing-badge", {
+        scale: 1,
+        opacity: 1,
+        duration: 0.6,
+        ease: "back.out(1.7)",
+        scrollTrigger: {
+          trigger: ".pricing-header",
+          start: "top 80%",
+          toggleActions: "play none none reverse",
+        },
+      });
+
+      // Animate heading
+      gsap.to(".pricing-heading", {
+        y: 0,
+        opacity: 1,
+        duration: 0.8,
+        delay: 0.2,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: ".pricing-header",
+          start: "top 80%",
+          toggleActions: "play none none reverse",
+        },
+      });
+
+      // Animate description
+      gsap.to(".pricing-description", {
+        y: 0,
+        opacity: 1,
+        duration: 0.6,
+        delay: 0.4,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: ".pricing-header",
+          start: "top 80%",
+          toggleActions: "play none none reverse",
+        },
+      });
+
+      // Animate button
+      gsap.to(".pricing-button", {
+        scale: 1,
+        opacity: 1,
+        duration: 0.5,
+        delay: 0.6,
+        ease: "back.out(1.7)",
+        scrollTrigger: {
+          trigger: ".pricing-header",
+          start: "top 80%",
+          toggleActions: "play none none reverse",
+        },
+      });
 
       // Animate pricing cards
-      gsap.fromTo(
-        ".pricing-card",
-        { y: 80, opacity: 0 },
-        {
-          y: 0,
-          opacity: 1,
-          stagger: 0.15,
-          duration: 0.8,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: ".pricing-grid",
-            start: "top 80%",
-            toggleActions: "play none none none",
-          },
-        }
-      );
+      gsap.to(".pricing-card", {
+        y: 0,
+        opacity: 1,
+        stagger: 0.15,
+        duration: 0.8,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: ".pricing-grid",
+          start: "top 80%",
+          toggleActions: "play none none reverse",
+        },
+      });
 
-      // Animate evaluation section
-      gsap.fromTo(
-        ".evaluation-heading",
-        { y: 30, opacity: 0 },
-        {
-          y: 0,
-          opacity: 1,
-          duration: 0.8,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: ".evaluation-section",
-            start: "top 80%",
-            toggleActions: "play none none none",
-          },
-        }
-      );
+      // Animate evaluation heading
+      gsap.to(".evaluation-heading", {
+        y: 0,
+        opacity: 1,
+        duration: 0.8,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: ".evaluation-section",
+          start: "top 80%",
+          toggleActions: "play none none reverse",
+        },
+      });
 
-      gsap.fromTo(
-        ".evaluation-card",
-        { y: 40, opacity: 0 },
-        {
-          y: 0,
-          opacity: 1,
-          stagger: 0.1,
-          duration: 0.7,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: ".evaluation-grid",
-            start: "top 80%",
-            toggleActions: "play none none none",
-          },
-        }
-      );
+      // Animate evaluation cards
+      gsap.to(".evaluation-card", {
+        y: 0,
+        opacity: 1,
+        stagger: 0.1,
+        duration: 0.7,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: ".evaluation-grid",
+          start: "top 80%",
+          toggleActions: "play none none reverse",
+        },
+      });
     },
     { scope: sectionRef, dependencies: [] }
   );

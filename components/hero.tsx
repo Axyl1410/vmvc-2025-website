@@ -6,32 +6,41 @@ import gsap from "gsap";
 import Image from "next/image";
 import { useRef } from "react";
 
+const MOBILE_BREAKPOINT = 768;
+
 export function Hero() {
   const containerRef = useRef<HTMLDivElement>(null);
 
   useGSAP(
     () => {
+      // Check if animations should run
+      const isMobile = window.innerWidth < MOBILE_BREAKPOINT;
+
+      if (isMobile) {
+        // On mobile, just ensure everything is visible immediately
+        gsap.set(
+          ".hero-logo, .hero-heading span, .hero-description, .hero-button, .hero-card",
+          {
+            opacity: 1,
+            y: 0,
+            scale: 1,
+            clearProps: "all",
+          }
+        );
+        return;
+      }
+
+      // Desktop animations with timeline
       const tl = gsap.timeline({
         defaults: { ease: "power3.out", duration: 0.8 },
       });
 
-      // Set initial state
-      gsap.set(
-        ".hero-logo, .hero-heading span, .hero-description, .hero-button, .hero-card",
-        {
-          opacity: 1,
-          clearProps: "all",
-        }
-      );
-
-      // Animate logo and subtitle together
       tl.fromTo(
         ".hero-logo",
         { y: -30, opacity: 0 },
         { y: 0, opacity: 1, duration: 1 }
       );
 
-      // Animate heading lines with stagger
       tl.fromTo(
         ".hero-heading span",
         { y: 40, opacity: 0 },
@@ -39,7 +48,6 @@ export function Hero() {
         "-=0.5"
       );
 
-      // Animate description
       tl.fromTo(
         ".hero-description",
         { y: 20, opacity: 0 },
@@ -47,7 +55,6 @@ export function Hero() {
         "-=0.3"
       );
 
-      // Animate button with scale
       tl.fromTo(
         ".hero-button",
         { scale: 0.8, opacity: 0 },
@@ -55,7 +62,6 @@ export function Hero() {
         "-=0.2"
       );
 
-      // Animate feature cards with stagger
       tl.fromTo(
         ".hero-card",
         { y: 60, opacity: 0 },

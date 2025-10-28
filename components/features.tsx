@@ -9,6 +9,8 @@ import { useEffect, useRef, useState } from "react";
 
 gsap.registerPlugin(ScrollTrigger);
 
+const MOBILE_BREAKPOINT = 768;
+
 type FeaturesContent = {
   title: string;
   subtitle: string;
@@ -40,58 +42,64 @@ export function Features() {
 
   useGSAP(
     () => {
-      // Animate heading
-      gsap.fromTo(
-        ".features-heading",
-        { y: 40, opacity: 0 },
-        {
-          y: 0,
+      // Check if animations should run (disable on small screens for better performance)
+      const isMobile = window.innerWidth < MOBILE_BREAKPOINT;
+
+      if (isMobile) {
+        // On mobile, just ensure everything is visible
+        gsap.set(".features-heading, .features-card, .feature-item", {
           opacity: 1,
-          duration: 0.8,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: ".features-heading",
-            start: "top 80%",
-            toggleActions: "play none none none",
-          },
-        }
-      );
+          y: 0,
+          x: 0,
+        });
+        return;
+      }
+
+      // Desktop animations - set initial states
+      gsap.set(".features-heading", { y: 40, opacity: 0 });
+      gsap.set(".features-card", { y: 60, opacity: 0 });
+      gsap.set(".feature-item", { x: -20, opacity: 0 });
+
+      // Animate heading
+      gsap.to(".features-heading", {
+        y: 0,
+        opacity: 1,
+        duration: 0.8,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: ".features-heading",
+          start: "top 80%",
+          toggleActions: "play none none reverse",
+        },
+      });
 
       // Animate cards
-      gsap.fromTo(
-        ".features-card",
-        { y: 60, opacity: 0 },
-        {
-          y: 0,
-          opacity: 1,
-          stagger: 0.2,
-          duration: 0.8,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: ".features-grid",
-            start: "top 80%",
-            toggleActions: "play none none none",
-          },
-        }
-      );
+      gsap.to(".features-card", {
+        y: 0,
+        opacity: 1,
+        stagger: 0.2,
+        duration: 0.8,
+        ease: "power3.out",
+        scrollTrigger: {
+          trigger: ".features-grid",
+          start: "top 80%",
+          toggleActions: "play none none reverse",
+        },
+      });
 
-      // Animate skill items
-      gsap.fromTo(
-        ".feature-item",
-        { x: -20, opacity: 0 },
-        {
-          x: 0,
-          opacity: 1,
-          stagger: 0.1,
-          duration: 0.6,
-          ease: "power2.out",
-          scrollTrigger: {
-            trigger: ".features-grid",
-            start: "top 70%",
-            toggleActions: "play none none none",
-          },
-        }
-      );
+      // Animate items
+      gsap.to(".feature-item", {
+        x: 0,
+        opacity: 1,
+        stagger: 0.1,
+        duration: 0.6,
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: ".features-grid",
+          start: "top 70%",
+          toggleActions: "play none none reverse",
+        },
+      });
     },
     { scope: sectionRef, dependencies: [] }
   );

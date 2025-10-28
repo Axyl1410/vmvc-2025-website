@@ -1,6 +1,7 @@
 import { AppverseFooter } from "@/components/appverse-footer";
 import { SiteHeader } from "@/components/site-header";
 import type { Metadata } from "next";
+import Script from "next/script";
 
 export const metadata: Metadata = {
   title: "Về Cuộc Thi | Viet My Vibe Code 2025",
@@ -34,23 +35,19 @@ export default function AboutPage() {
 
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(schemaData),
-        }}
-      />
+      <Script id="about-ldjson" type="application/ld+json">
+        {JSON.stringify(schemaData)}
+      </Script>
       <SiteHeader />
 
       {/* Hero Section */}
-      <section className="relative bg-black text-white py-20 px-6 md:px-12 lg:px-20 text-center">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(163,230,53,0.15),transparent_70%)] pointer-events-none" />
+      <section className="relative px-6 py-20 text-center text-white md:px-12 lg:px-20">
         <div className="relative">
-          <h1 className="text-4xl md:text-6xl font-bold mb-6">
+          <h1 className="mb-6 font-bold text-4xl md:text-6xl">
             Về Cuộc Thi{" "}
             <span className="text-lime-300">Viet My Vibe Code 2025</span>
           </h1>
-          <p className="text-lg md:text-xl max-w-3xl mx-auto text-neutral-300">
+          <p className="mx-auto max-w-3xl text-lg text-neutral-300 md:text-xl">
             Sân chơi lập trình dành cho sinh viên, nơi công nghệ AI gặp gỡ kỹ
             năng coding để tạo ra những giải pháp phần mềm sáng tạo.
           </p>
@@ -58,10 +55,10 @@ export default function AboutPage() {
       </section>
 
       {/* Giới thiệu */}
-      <section className="py-16 bg-neutral-900 text-white px-6 md:px-12 lg:px-20">
-        <div className="max-w-4xl mx-auto">
-          <div className="liquid-glass border border-white/20 rounded-3xl p-8 md:p-12">
-            <h2 className="text-3xl font-bold mb-6 text-lime-300">
+      <section className="px-6 py-16 text-white md:px-12 lg:px-20">
+        <div className="mx-auto max-w-4xl">
+          <div className="liquid-glass rounded-3xl border border-white/20 p-8 md:p-12">
+            <h2 className="mb-6 font-bold text-3xl text-lime-300">
               Giới Thiệu
             </h2>
             <div className="space-y-4 text-neutral-300 leading-relaxed">
@@ -90,9 +87,9 @@ export default function AboutPage() {
       </section>
 
       {/* Mục tiêu */}
-      <section className="py-16 bg-black text-white px-6 md:px-12 lg:px-20">
-        <div className="max-w-6xl mx-auto">
-          <h2 className="text-3xl md:text-4xl font-bold mb-12 text-center">
+      <section className="px-6 py-16 text-white md:px-12 lg:px-20">
+        <div className="mx-auto max-w-6xl">
+          <h2 className="mb-12 text-center font-bold text-3xl md:text-4xl">
             Mục Tiêu Cuộc Thi
           </h2>
           <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
@@ -121,12 +118,12 @@ export default function AboutPage() {
                 title: "Định hướng nghề nghiệp",
                 desc: "Mở ra cơ hội nghề nghiệp trong lĩnh vực AI và phần mềm cho thế hệ trẻ Việt Nam.",
               },
-            ].map((item, index) => (
+            ].map((item) => (
               <div
-                key={index}
-                className="liquid-glass border border-white/20 p-6 rounded-2xl hover:border-lime-300/50 transition-all duration-300 hover:shadow-[0_0_30px_rgba(132,204,22,0.2)]"
+                className="liquid-glass rounded-2xl border border-white/20 p-6 transition-all duration-300 hover:border-lime-300/50 hover:shadow-[0_0_30px_rgba(132,204,22,0.2)]"
+                key={item.title}
               >
-                <h3 className="text-xl font-semibold mb-3 text-lime-300">
+                <h3 className="mb-3 font-semibold text-lime-300 text-xl">
                   {item.title}
                 </h3>
                 <p className="text-neutral-300">{item.desc}</p>
@@ -137,15 +134,15 @@ export default function AboutPage() {
       </section>
 
       {/* Thông tin tổ chức */}
-      <section className="py-16 bg-neutral-900 text-white px-6 md:px-12 lg:px-20">
-        <div className="max-w-4xl mx-auto">
-          <div className="liquid-glass border border-white/20 rounded-3xl p-8 md:p-12">
-            <h2 className="text-3xl font-bold mb-6 text-lime-300">
+      <section className="px-6 py-16 text-white md:px-12 lg:px-20">
+        <div className="mx-auto max-w-4xl">
+          <div className="liquid-glass rounded-3xl border border-white/20 p-8 md:p-12">
+            <h2 className="mb-6 font-bold text-3xl text-lime-300">
               Ban Tổ Chức
             </h2>
             <div className="space-y-6">
               <div>
-                <h3 className="text-xl font-semibold text-white mb-2">
+                <h3 className="mb-2 font-semibold text-white text-xl">
                   Cao Đẳng Việt Mỹ
                 </h3>
                 <p className="text-neutral-300">
@@ -154,46 +151,46 @@ export default function AboutPage() {
                   sinh viên đam mê công nghệ.
                 </p>
               </div>
-              <div className="grid md:grid-cols-2 gap-6 pt-6 border-t border-white/10">
+              <div className="grid gap-6 border-white/10 border-t pt-6 md:grid-cols-2">
                 <div>
-                  <h4 className="font-semibold text-white mb-2">Thời gian</h4>
+                  <h4 className="mb-2 font-semibold text-white">Thời gian</h4>
                   <p className="text-neutral-300">17/11/2025 - 29/11/2025</p>
                 </div>
                 <div>
-                  <h4 className="font-semibold text-white mb-2">Địa điểm</h4>
+                  <h4 className="mb-2 font-semibold text-white">Địa điểm</h4>
                   <p className="text-neutral-300">Cao Đẳng Việt Mỹ</p>
                 </div>
                 <div>
-                  <h4 className="font-semibold text-white mb-2">Liên hệ</h4>
+                  <h4 className="mb-2 font-semibold text-white">Liên hệ</h4>
                   <p className="text-neutral-300">
                     <a
+                      className="transition-colors hover:text-lime-300"
                       href="mailto:mua.tran@caodangvietmy.edu.vn"
-                      className="hover:text-lime-300 transition-colors"
                     >
                       Email: mua.tran@caodangvietmy.edu.vn
                     </a>
                   </p>
                   <p className="text-neutral-300">
                     <a
+                      className="transition-colors hover:text-lime-300"
                       href="tel:0914444686"
-                      className="hover:text-lime-300 transition-colors"
                     >
                       Hotline: 091 444 46 86
                     </a>
                   </p>
                   <p className="text-neutral-300">
                     <a
+                      className="transition-colors hover:text-lime-300"
                       href="https://www.facebook.com/caodangvietmy"
-                      target="_blank"
                       rel="noopener noreferrer"
-                      className="hover:text-lime-300 transition-colors"
+                      target="_blank"
                     >
                       Facebook: Cao Đẳng Việt Mỹ
                     </a>
                   </p>
                 </div>
                 <div>
-                  <h4 className="font-semibold text-white mb-2">Giải thưởng</h4>
+                  <h4 className="mb-2 font-semibold text-white">Giải thưởng</h4>
                   <p className="text-neutral-300">
                     Tổng giải thưởng: 6.000.000 VNĐ
                   </p>
@@ -201,26 +198,6 @@ export default function AboutPage() {
               </div>
             </div>
           </div>
-        </div>
-      </section>
-
-      {/* CTA Section */}
-      <section className="py-20 bg-black text-center text-white px-6">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(163,230,53,0.1),transparent_70%)] pointer-events-none" />
-        <div className="relative">
-          <h2 className="text-3xl md:text-4xl font-bold mb-6">
-            Sẵn sàng tham gia?
-          </h2>
-          <p className="text-lg text-neutral-300 mb-8 max-w-2xl mx-auto">
-            Đăng ký ngay để trở thành một phần của cuộc thi lập trình sáng tạo
-            nhất năm!
-          </p>
-          <a
-            href="/#register"
-            className="inline-block bg-lime-400 text-black px-8 py-3 rounded-full font-semibold hover:bg-lime-300 transition-all hover:shadow-[0_0_30px_rgba(163,230,53,0.4)]"
-          >
-            Đăng Ký Ngay
-          </a>
         </div>
       </section>
 

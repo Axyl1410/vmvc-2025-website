@@ -130,12 +130,17 @@
     @apply bg-background text-foreground;
     height: 100%;
     min-height: 100vh;
-    min-height: 100dvh;
     overflow-x: hidden;
     overscroll-behavior: none;
     background: #000000;
     -webkit-overflow-scrolling: touch;
     touch-action: manipulation;
+  }
+
+  @supports (min-height: 100dvh) {
+    body {
+      min-height: 100dvh;
+    }
   }
 
   @supports (-webkit-touch-callout: none) {
@@ -156,7 +161,13 @@
   [data-nextjs-scroll-focus-boundary] {
     background: #000000;
     min-height: 100vh;
-    min-height: 100dvh;
+  }
+
+  @supports (min-height: 100dvh) {
+    #__next,
+    [data-nextjs-scroll-focus-boundary] {
+      min-height: 100dvh;
+    }
   }
 }
 
@@ -165,14 +176,18 @@
   background: rgba(0, 0, 0, 0.6);
   backdrop-filter: blur(20px) saturate(180%);
   border: 1px solid rgba(255, 255, 255, 0.15);
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  box-shadow:
+    0 4px 16px rgba(0, 0, 0, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
 }
 
 .liquid-glass-enhanced {
   background: rgba(0, 0, 0, 0.7);
   backdrop-filter: blur(20px) saturate(180%);
   border: 1px solid rgba(255, 255, 255, 0.2);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.15);
+  box-shadow:
+    0 8px 24px rgba(0, 0, 0, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15);
 }
 
 /* Improved header glass background for better contrast */
@@ -180,7 +195,9 @@
   background: rgba(0, 0, 0, 0.4);
   backdrop-filter: blur(20px) saturate(180%);
   border: 1px solid rgba(255, 255, 255, 0.15);
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  box-shadow:
+    0 2px 12px rgba(0, 0, 0, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
 }
 
 /* Apple-style glass border utilities - Clean and minimal */
@@ -188,36 +205,45 @@
   border: 1px solid rgba(255, 255, 255, 0.12);
   background: rgba(0, 0, 0, 0.5);
   backdrop-filter: blur(20px) saturate(180%);
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  box-shadow:
+    0 4px 16px rgba(0, 0, 0, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
 }
 
 .glass-border-enhanced {
   border: 1px solid rgba(255, 255, 255, 0.15);
   background: rgba(0, 0, 0, 0.6);
   backdrop-filter: blur(20px) saturate(180%);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.25);
+  box-shadow:
+    0 8px 24px rgba(0, 0, 0, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.25);
 }
 
 .glass-border-subtle {
   border: 1px solid rgba(255, 255, 255, 0.08);
   background: rgba(0, 0, 0, 0.4);
   backdrop-filter: blur(20px) saturate(180%);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  box-shadow:
+    0 2px 8px rgba(0, 0, 0, 0.05),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
 }
 
 /* Enhanced glass border hover effects with chromatic aberration */
 .glass-border:hover {
-  filter: drop-shadow(0 0 2px rgba(255, 0, 0, 0.1)) drop-shadow(1px 0 2px rgba(0, 255, 0, 0.08))
+  filter: drop-shadow(0 0 2px rgba(255, 0, 0, 0.1))
+    drop-shadow(1px 0 2px rgba(0, 255, 0, 0.08))
     drop-shadow(-1px 0 2px rgba(0, 0, 255, 0.06));
 }
 
 .glass-border-enhanced:hover {
-  filter: drop-shadow(0 0 3px rgba(255, 0, 0, 0.12)) drop-shadow(1px 0 3px rgba(0, 255, 0, 0.1))
+  filter: drop-shadow(0 0 3px rgba(255, 0, 0, 0.12))
+    drop-shadow(1px 0 3px rgba(0, 255, 0, 0.1))
     drop-shadow(-1px 0 3px rgba(0, 0, 255, 0.08));
 }
 
 .glass-border-subtle:hover {
-  filter: drop-shadow(0 0 1px rgba(255, 0, 0, 0.06)) drop-shadow(0.5px 0 1px rgba(0, 255, 0, 0.05))
+  filter: drop-shadow(0 0 1px rgba(255, 0, 0, 0.06))
+    drop-shadow(0.5px 0 1px rgba(0, 255, 0, 0.05))
     drop-shadow(-0.5px 0 1px rgba(0, 0, 255, 0.04));
 }
 

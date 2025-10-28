@@ -12,23 +12,23 @@ export default function FAQPage() {
   return (
     <>
       <SiteHeader />
-      <section className="bg-[#0a0a0a] text-white py-16">
+      <section className="py-16 text-white">
         <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto">
-            <div className="relative overflow-hidden rounded-3xl liquid-glass p-6 sm:p-10 shadow-xl border border-white/20">
+          <div className="mx-auto max-w-4xl">
+            <div className="liquid-glass relative overflow-hidden rounded-3xl border border-white/20 p-6 shadow-xl sm:p-10">
               <div className="relative space-y-12">
                 <header className="space-y-4">
-                  <h1 className="text-4xl font-bold tracking-tight text-lime-300">
+                  <h1 className="font-bold text-4xl text-lime-300 tracking-tight">
                     Câu Hỏi Thường Gặp
                   </h1>
-                  <p className="text-neutral-400 text-lg">
+                  <p className="text-lg text-neutral-400">
                     Những câu hỏi phổ biến về cuộc thi lập trình Viet My Vibe
                     Code 2025.
                   </p>
                 </header>
 
                 <section className="space-y-3">
-                  <h2 className="text-2xl font-semibold text-white">
+                  <h2 className="font-semibold text-2xl text-white">
                     1. Cuộc thi dành cho ai?
                   </h2>
                   <p className="text-neutral-300">
@@ -39,7 +39,7 @@ export default function FAQPage() {
                 </section>
 
                 <section className="space-y-3">
-                  <h2 className="text-2xl font-semibold text-white">
+                  <h2 className="font-semibold text-2xl text-white">
                     2. Cuộc thi diễn ra khi nào và ở đâu?
                   </h2>
                   <p className="text-neutral-300">
@@ -51,11 +51,11 @@ export default function FAQPage() {
                 </section>
 
                 <section className="space-y-3">
-                  <h2 className="text-2xl font-semibold text-white">
+                  <h2 className="font-semibold text-2xl text-white">
                     3. Có bao nhiêu vòng thi?
                   </h2>
                   <p className="text-neutral-300">Cuộc thi có 2 vòng:</p>
-                  <ul className="list-disc list-inside space-y-2 text-neutral-400 ml-4">
+                  <ul className="ml-4 list-inside list-disc space-y-2 text-neutral-400">
                     <li>
                       <strong className="text-neutral-300">
                         Vòng Tuyển Chọn:
@@ -74,13 +74,13 @@ export default function FAQPage() {
                 </section>
 
                 <section className="space-y-3">
-                  <h2 className="text-2xl font-semibold text-white">
+                  <h2 className="font-semibold text-2xl text-white">
                     4. Được phép sử dụng công cụ gì?
                   </h2>
                   <p className="text-neutral-300">
                     Thí sinh được phép sử dụng:
                   </p>
-                  <ul className="list-disc list-inside space-y-2 text-neutral-400 ml-4">
+                  <ul className="ml-4 list-inside list-disc space-y-2 text-neutral-400">
                     <li>
                       <strong className="text-neutral-300">
                         AI Chatbot/AI Agent:
@@ -106,13 +106,13 @@ export default function FAQPage() {
                 </section>
 
                 <section className="space-y-3">
-                  <h2 className="text-2xl font-semibold text-white">
+                  <h2 className="font-semibold text-2xl text-white">
                     5. Tiêu chí chấm điểm như thế nào?
                   </h2>
                   <p className="text-neutral-300">
                     Ban giám khảo đánh giá theo 4 tiêu chí:
                   </p>
-                  <ul className="list-disc list-inside space-y-2 text-neutral-400 ml-4">
+                  <ul className="ml-4 list-inside list-disc space-y-2 text-neutral-400">
                     <li>
                       <strong className="text-neutral-300">
                         Hiệu quả ứng dụng AI (30%):
@@ -141,11 +141,11 @@ export default function FAQPage() {
                 </section>
 
                 <section className="space-y-3">
-                  <h2 className="text-2xl font-semibold text-white">
+                  <h2 className="font-semibold text-2xl text-white">
                     6. Giải thưởng là gì?
                   </h2>
                   <p className="text-neutral-300">Cơ cấu giải thưởng:</p>
-                  <ul className="list-disc list-inside space-y-2 text-neutral-400 ml-4">
+                  <ul className="ml-4 list-inside list-disc space-y-2 text-neutral-400">
                     <li>
                       <strong className="text-lime-300">Giải Nhất:</strong>{" "}
                       3.000.000 VNĐ + Giấy chứng nhận
@@ -169,7 +169,7 @@ export default function FAQPage() {
                 </section>
 
                 <section className="space-y-3">
-                  <h2 className="text-2xl font-semibold text-white">
+                  <h2 className="font-semibold text-2xl text-white">
                     7. Có được sử dụng code có sẵn không?
                   </h2>
                   <p className="text-neutral-300">
@@ -180,12 +180,12 @@ export default function FAQPage() {
                 </section>
 
                 <section className="space-y-3">
-                  <h2 className="text-2xl font-semibold text-white">
+                  <h2 className="font-semibold text-2xl text-white">
                     8. Làm thế nào để đăng ký?
                   </h2>
                   <p className="text-neutral-300">
                     Mỗi đội gồm 2 thành viên đăng ký chính thức qua{" "}
-                    <a href="/#register" className="text-lime-300 underline">
+                    <a className="text-lime-300 underline" href="/#register">
                       link đăng ký
                     </a>{" "}
                     trên trang chủ. Đảm bảo điền đầy đủ thông tin của cả 2 thành
@@ -194,7 +194,7 @@ export default function FAQPage() {
                 </section>
 
                 <section className="space-y-3">
-                  <h2 className="text-2xl font-semibold text-white">
+                  <h2 className="font-semibold text-2xl text-white">
                     9. Quyết định của ban giám khảo có thể thay đổi không?
                   </h2>
                   <p className="text-neutral-300">
@@ -204,7 +204,7 @@ export default function FAQPage() {
                 </section>
 
                 <section className="space-y-3">
-                  <h2 className="text-2xl font-semibold text-white">
+                  <h2 className="font-semibold text-2xl text-white">
                     10. Liên hệ ai để biết thêm thông tin?
                   </h2>
                   <p className="text-neutral-300">
@@ -213,8 +213,8 @@ export default function FAQPage() {
                   <p className="text-neutral-300">
                     Email:{" "}
                     <a
+                      className="text-lime-300 underline transition-colors hover:text-lime-200"
                       href="mailto:mua.tran@caodangvietmy.edu.vn"
-                      className="text-lime-300 underline hover:text-lime-200 transition-colors"
                     >
                       mua.tran@caodangvietmy.edu.vn
                     </a>
@@ -222,8 +222,8 @@ export default function FAQPage() {
                   <p className="text-neutral-300">
                     Hotline:{" "}
                     <a
+                      className="text-lime-300 underline transition-colors hover:text-lime-200"
                       href="tel:0914444686"
-                      className="text-lime-300 underline hover:text-lime-200 transition-colors"
                     >
                       091 444 46 86
                     </a>
@@ -231,10 +231,10 @@ export default function FAQPage() {
                   <p className="text-neutral-300">
                     Facebook:{" "}
                     <a
+                      className="text-lime-300 underline transition-colors hover:text-lime-200"
                       href="https://www.facebook.com/caodangvietmy"
-                      target="_blank"
                       rel="noopener noreferrer"
-                      className="text-lime-300 underline hover:text-lime-200 transition-colors"
+                      target="_blank"
                     >
                       Cao Đẳng Việt Mỹ
                     </a>

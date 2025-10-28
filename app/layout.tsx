@@ -14,7 +14,6 @@ export const metadata: Metadata = {
   title: "Viet My Vibe Code 2025 | Cuộc Thi Lập Trình Sinh Viên",
   description:
     "Cuộc thi lập trình dành cho sinh viên, nơi thí sinh vận dụng AI và kỹ năng lập trình để xây dựng giải pháp phần mềm hoàn chỉnh. Giải thưởng lên đến 6 triệu đồng.",
-  generator: "v0.app",
 };
 
 export default function RootLayout({
@@ -23,42 +22,25 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={inter.className}>
+    <html className={inter.className} lang="en">
       <head>
+        <link href="/favicon.ico" rel="icon" sizes="any" />
         <meta
-          name="viewport"
           content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover"
+          name="viewport"
         />
 
         {/* Font Preload */}
         <link
-          rel="preload"
-          href="/fonts/Inter.woff2"
           as="font"
-          type="font/woff2"
           crossOrigin="anonymous"
           fetchPriority="high"
+          href="/fonts/Inter.woff2"
+          rel="preload"
+          type="font/woff2"
         />
 
-        {/* Dynamic Favicon Script */}
-        <Script id="dynamic-favicon" strategy="beforeInteractive">
-          {`
-            function updateFavicon() {
-              const darkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
-              const faviconHref = '/icons/skitbit-white.svg';
-              let link = document.querySelector("link[rel~='icon']");
-              if (!link) {
-                link = document.createElement('link');
-                link.rel = 'icon';
-                document.getElementsByTagName('head')[0].appendChild(link);
-              }
-              link.href = faviconHref;
-            }
-            updateFavicon();
-            // Listen for changes in theme
-            window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', updateFavicon);
-          `}
-        </Script>
+        {/* Static favicon */}
 
         {/* Google Tag Manager (deferred) */}
         <Script id="gtm-script" strategy="lazyOnload">
@@ -88,11 +70,11 @@ export default function RootLayout({
           <div className="fixed inset-0 z-0 bg-black">
             <Plasma
               color="#8b5cf6"
-              speed={0.8}
               direction="forward"
-              scale={1.5}
-              opacity={0.4}
               mouseInteractive={true}
+              opacity={0.4}
+              scale={1.5}
+              speed={0.8}
             />
           </div>
           <div className="relative z-10">{children}</div>

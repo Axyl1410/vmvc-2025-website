@@ -47,6 +47,7 @@ uniform float uScale;
 uniform float uOpacity;
 uniform vec2 uMouse;
 uniform float uMouseInteractive;
+uniform float uIterations;
 out vec4 fragColor;
 
 void mainImage(out vec4 o, vec2 C) {
@@ -59,7 +60,7 @@ void mainImage(out vec4 o, vec2 C) {
   float i, d, z, T = iTime * uSpeed * uDirection;
   vec3 O, p, S;
 
-  for (vec2 r = iResolution.xy, Q; ++i < 60.; O += o.w/d*o.xyz) {
+  for (vec2 r = iResolution.xy, Q; ++i < uIterations; O += o.w/d*o.xyz) {
     p = z*normalize(vec3(C-.5*r,r.y)); 
     p.z -= 4.; 
     S = p;
@@ -107,11 +108,19 @@ export const Plasma: React.FC<PlasmaProps> = ({
   const containerRef = useRef<HTMLDivElement | null>(null);
   const mousePos = useRef({ x: 0, y: 0 });
 
+  // Refs to store OGL objects
+  const rendererRef = useRef<Renderer | null>(null);
+  const programRef = useRef<Program | null>(null);
+  const meshRef = useRef<Mesh | null>(null);
+  const isMobileRef = useRef(false);
+  const isIOSRef = useRef(false);
+
+  // == 1. INITIALIZATION EFFECT (RUNS ONCE) ==
   useEffect(() => {
     if (!containerRef.current) return;
 
-    const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
-    const isMobile = window.innerWidth < 768;
+    isIOSRef.current = /iPad|iPhone|iPod/.test(navigator.userAgent);
+    isMobileRef.current = window.innerWidth < 768;
     const prefersReducedMotion =
       window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches ?? false;
     const saveData = (navigator as any)?.connection?.saveData === true;
@@ -121,9 +130,7 @@ export const Plasma: React.FC<PlasmaProps> = ({
       return;
     }
 
-    const useCustomColor = color ? 1.0 : 0.0;
-    const customColorRgb = color ? hexToRgb(color) : [1, 1, 1];
-    const directionMultiplier = direction === "reverse" ? -1.0 : 1.0;
+    const iterations = isMobileRef.current ? 40.0 : 60.0;
 
     const renderer = new Renderer({
       webgl: 2,
@@ -132,10 +139,12 @@ export const Plasma: React.FC<PlasmaProps> = ({
       // Reduce DPR more aggressively on mobile for big win
       dpr: Math.max(
         0.5,
-        Math.min(window.devicePixelRatio || 1, isMobile ? 1 : 2) *
-          (isIOS || isMobile ? 0.5 : 1)
+        Math.min(window.devicePixelRatio || 1, isMobileRef.current ? 1 : 2) *
+          (isIOSRef.current || isMobileRef.current ? 0.5 : 1)
       ),
     });
+    rendererRef.current = renderer;
+
     const gl = renderer.gl;
     const canvas = gl.canvas as HTMLCanvasElement;
     canvas.style.cssText =
@@ -149,49 +158,67 @@ export const Plasma: React.FC<PlasmaProps> = ({
       uniforms: {
         iTime: { value: 0 },
         iResolution: { value: new Float32Array([1, 1]) },
-        uCustomColor: { value: new Float32Array(customColorRgb) },
-        uUseCustomColor: { value: useCustomColor },
-        // Slightly slow down by default to reduce work
-        uSpeed: { value: speed * (isMobile ? 0.3 : 0.4) },
-        uDirection: { value: directionMultiplier },
-        // Scale down a touch on mobile for reduced fragment work
-        uScale: { value: isMobile ? scale * 1.2 : scale },
-        // Lower opacity a bit for blend cost and visual subtlety
+        uCustomColor: { value: new Float32Array(hexToRgb(color)) },
+        uUseCustomColor: { value: color ? 1.0 : 0.0 },
+        uSpeed: { value: speed * (isMobileRef.current ? 0.3 : 0.4) },
+        uDirection: {
+          value:
+            direction === "pingpong"
+              ? 0.0
+              : direction === "reverse"
+                ? -1.0
+                : 1.0,
+        },
+        uScale: { value: isMobileRef.current ? scale * 1.2 : scale },
         uOpacity: { value: Math.min(0.8, opacity) },
         uMouse: { value: new Float32Array([0, 0]) },
         uMouseInteractive: {
-          value: isIOS ? 0.0 : mouseInteractive ? 1.0 : 0.0,
+          value: isIOSRef.current ? 0.0 : mouseInteractive ? 1.0 : 0.0,
         },
+        uIterations: { value: iterations },
       },
     });
+    programRef.current = program;
+
     const mesh = new Mesh(gl, { geometry, program });
+    meshRef.current = mesh;
 
     // Mouse interaction
     const handleMouseMove = (e: MouseEvent) => {
-      if (isIOS || !mouseInteractive) return;
+      if (isIOSRef.current || !programRef.current) return;
+      const mouseInteractiveValue = (
+        programRef.current.uniforms.uMouseInteractive as any
+      ).value;
+      if (mouseInteractiveValue < 0.5) return;
+
       const rect = containerRef.current!.getBoundingClientRect();
       mousePos.current.x = e.clientX - rect.left;
       mousePos.current.y = e.clientY - rect.top;
-      const mouseUniform = program.uniforms.uMouse.value as Float32Array;
+      const mouseUniform = programRef.current.uniforms.uMouse
+        .value as Float32Array;
       mouseUniform[0] = mousePos.current.x;
       mouseUniform[1] = mousePos.current.y;
     };
-    if (!isIOS && mouseInteractive) {
-      containerRef.current.addEventListener("mousemove", handleMouseMove);
-    }
+    containerRef.current.addEventListener("mousemove", handleMouseMove);
 
     // Resize handling with debounce
     let resizeTimer: number;
     const setSize = () => {
       clearTimeout(resizeTimer);
       resizeTimer = window.setTimeout(() => {
+        if (
+          !(containerRef.current && rendererRef.current && programRef.current)
+        )
+          return;
+
         const rect = containerRef.current!.getBoundingClientRect();
         const width = Math.max(1, Math.floor(rect.width));
         const height = Math.max(1, Math.floor(rect.height));
-        renderer.setSize(width, height);
-        const res = program.uniforms.iResolution.value as Float32Array;
-        res[0] = gl.drawingBufferWidth;
-        res[1] = gl.drawingBufferHeight;
+        rendererRef.current.setSize(width, height);
+        const res = programRef.current.uniforms.iResolution
+          .value as Float32Array;
+        res[0] = rendererRef.current.gl.drawingBufferWidth;
+        res[1] = rendererRef.current.gl.drawingBufferHeight;
       }, 50);
     };
     const ro = new ResizeObserver(setSize);
@@ -202,23 +229,40 @@ export const Plasma: React.FC<PlasmaProps> = ({
     let raf = 0;
     let lastTime = 0;
     let running = true;
-    const targetDelta = isMobile ? 50 : 33; // ~20fps mobile, ~30fps desktop
+    const targetDelta = isMobileRef.current ? 50 : 33; // ~20fps mobile, ~30fps desktop
     const t0 = performance.now();
 
     const loop = (t: number) => {
-      if (!running) return;
+      if (
+        !(
+          running &&
+          programRef.current &&
+          rendererRef.current &&
+          meshRef.current
+        )
+      )
+        return;
+      raf = requestAnimationFrame(loop); // Request next frame immediately
+
       const delta = t - lastTime;
-      if (delta >= targetDelta) {
-        const timeValue = (t - t0) * 0.001;
-        if (direction === "pingpong") {
-          const cycle = Math.sin(timeValue * 0.5) * directionMultiplier;
-          (program.uniforms.uDirection as any).value = cycle;
-        }
-        (program.uniforms.iTime as any).value = timeValue;
-        renderer.render({ scene: mesh });
-        lastTime = t;
+      if (delta < targetDelta) {
+        // Skip frame if not enough time
+        return;
       }
-      raf = requestAnimationFrame(loop);
+      lastTime = t; // Update time for this render
+
+      const timeValue = (t - t0) * 0.001;
+
+      // Only update uDirection if it's 'pingpong' (0.0 is flag)
+      const currentDirection = (programRef.current.uniforms.uDirection as any)
+        .value;
+      if (currentDirection === 0.0) {
+        const cycle = Math.sin(timeValue * 0.5);
+        (programRef.current.uniforms.uDirection as any).value = cycle;
+      }
+
+      (programRef.current.uniforms.iTime as any).value = timeValue;
+      rendererRef.current.render({ scene: meshRef.current });
     };
     raf = requestAnimationFrame(loop);
 
@@ -228,7 +272,7 @@ export const Plasma: React.FC<PlasmaProps> = ({
       if (hidden && running) {
         running = false;
         cancelAnimationFrame(raf);
-      } else if (!hidden && !running) {
+      } else if (!(hidden || running)) {
         running = true;
         lastTime = 0;
         raf = requestAnimationFrame(loop);
@@ -242,19 +286,74 @@ export const Plasma: React.FC<PlasmaProps> = ({
       cancelAnimationFrame(raf);
       ro.disconnect();
       clearTimeout(resizeTimer);
-      if (!isIOS && mouseInteractive && containerRef.current) {
+      if (containerRef.current) {
         containerRef.current.removeEventListener("mousemove", handleMouseMove);
       }
       try {
         containerRef.current?.removeChild(canvas);
       } catch {}
+      rendererRef.current?.gl
+        ?.getExtension("WEBGL_lose_context")
+        ?.loseContext();
     };
-  }, [color, speed, direction, scale, opacity, mouseInteractive]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []); // <-- ONLY RUN ONCE - Initial values are captured, updates handled by individual useEffects
+
+  // == 2. UNIFORM UPDATE EFFECTS ==
+
+  useEffect(() => {
+    if (!programRef.current) return;
+    const useCustomColor = color ? 1.0 : 0.0;
+    const customColorRgb = color ? hexToRgb(color) : [1, 1, 1];
+    (programRef.current.uniforms.uUseCustomColor as any).value = useCustomColor;
+    (programRef.current.uniforms.uCustomColor as any).value.set(customColorRgb);
+  }, [color]);
+
+  useEffect(() => {
+    if (!programRef.current) return;
+    (programRef.current.uniforms.uSpeed as any).value =
+      speed * (isMobileRef.current ? 0.3 : 0.4);
+  }, [speed]);
+
+  useEffect(() => {
+    if (!programRef.current) return;
+    let directionValue;
+    if (direction === "reverse") {
+      directionValue = -1.0;
+    } else if (direction === "forward") {
+      directionValue = 1.0;
+    } else {
+      // 'pingpong'
+      directionValue = 0.0; // Use 0.0 as flag for 'pingpong'
+    }
+    (programRef.current.uniforms.uDirection as any).value = directionValue;
+  }, [direction]);
+
+  useEffect(() => {
+    if (!programRef.current) return;
+    (programRef.current.uniforms.uScale as any).value = isMobileRef.current
+      ? scale * 1.2
+      : scale;
+  }, [scale]);
+
+  useEffect(() => {
+    if (!programRef.current) return;
+    (programRef.current.uniforms.uOpacity as any).value = Math.min(
+      0.8,
+      opacity
+    );
+  }, [opacity]);
+
+  useEffect(() => {
+    if (!programRef.current) return;
+    (programRef.current.uniforms.uMouseInteractive as any).value =
+      isIOSRef.current ? 0.0 : mouseInteractive ? 1.0 : 0.0;
+  }, [mouseInteractive]);
 
   return (
     <div
+      className="plasma-container pointer-events-none relative h-full w-full"
       ref={containerRef}
-      className="plasma-container relative w-full h-full pointer-events-none"
     />
   );
 };

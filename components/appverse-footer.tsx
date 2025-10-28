@@ -1,10 +1,10 @@
 "use client";
 
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
 
 interface FooterContent {
   tagline: string;
@@ -116,13 +116,13 @@ export function AppverseFooter() {
           <div className="grid gap-8 md:grid-cols-[1.2fr_1fr_1fr]">
             {/* Brand */}
             <div className="space-y-3">
-              <div className="flex items-center gap-1.5">
+              <div className="flex items-center gap-1">
                 <Image
                   alt="Viet My Vibe Code logo"
-                  className="h-6 w-6"
-                  height={24}
-                  src="/icons/skitbit-white.svg"
-                  width={24}
+                  className="h-12 w-12"
+                  height={48}
+                  src="/icons/logo.png"
+                  width={48}
                 />
                 <span className="font-semibold text-white text-xl">
                   VMVC 2025

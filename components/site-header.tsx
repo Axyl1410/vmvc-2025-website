@@ -1,16 +1,5 @@
 "use client";
 
-import {
-  ChevronDown,
-  FileText,
-  HelpCircle,
-  Info,
-  Menu,
-  Tag,
-} from "lucide-react";
-import Image from "next/image";
-import Link from "next/link";
-import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import {
   Collapsible,
@@ -26,6 +15,17 @@ import {
   NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import {
+  ChevronDown,
+  FileText,
+  HelpCircle,
+  Info,
+  Menu,
+  Tag,
+} from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
+import { useState } from "react";
 
 export function SiteHeader() {
   const [servicesOpen, setServicesOpen] = useState(false);
@@ -63,13 +63,13 @@ export function SiteHeader() {
       <div className="container mx-auto max-w-4xl">
         <div className="liquid-glass-header flex h-14 items-center justify-between rounded-full px-6">
           {/* Brand Logo */}
-          <Link className="flex items-center gap-1.5" href="/">
+          <Link className="flex items-center" href="/">
             <Image
               alt="Viet My Vibe Code logo"
-              className="h-5 w-5"
-              height={20}
-              src="/icons/skitbit-white.svg"
-              width={20}
+              className="h-12 w-12"
+              height={48}
+              src="/icons/logo.png"
+              width={48}
             />
             <span className="font-semibold text-white tracking-wide">
               VMVC 2025
@@ -155,7 +155,7 @@ export function SiteHeader() {
                     alt="Viet My Vibe Code logo"
                     className="h-6 w-6"
                     height={24}
-                    src="/icons/skitbit-white.svg"
+                    src="/icons/logo.png"
                     width={24}
                   />
                   <span className="font-semibold text-lg text-white tracking-wide">

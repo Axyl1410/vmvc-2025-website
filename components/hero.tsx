@@ -87,13 +87,13 @@ export function Hero() {
     <section className="relative isolate overflow-hidden" ref={containerRef}>
       <div className="container mx-auto px-4">
         <div className="flex flex-col items-center justify-center py-14 sm:py-20">
-          <div className="hero-logo mb-5 flex items-center gap-2">
+          <div className="hero-logo mb-5 flex items-center gap-1">
             <Image
               alt="Viet My Vibe Code logo"
-              className="h-8 w-8"
-              height={32}
-              src="/icons/skitbit-white.svg"
-              width={32}
+              className="h-12 w-12"
+              height={48}
+              src="/icons/logo.png"
+              width={48}
             />
             <p className="text-lime-300/80 text-sm uppercase tracking-[0.25em]">
               VIET MY VIBE CODE

@@ -1,11 +1,11 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
-import { isExternalRegistration, REGISTRATION_URL } from "@/lib/constants";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import Image from "next/image";
 import { useRef } from "react";
+import { Button } from "@/components/ui/button";
+import { isExternalRegistration, REGISTRATION_URL } from "@/lib/constants";
 
 const MOBILE_BREAKPOINT = 768;
 

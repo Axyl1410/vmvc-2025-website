@@ -1,5 +1,11 @@
 "use client";
 
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { CheckCircle2 } from "lucide-react";
+import Link from "next/link";
+import { useRef } from "react";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -8,12 +14,6 @@ import {
   CardHeader,
 } from "@/components/ui/card";
 import { isExternalRegistration, REGISTRATION_URL } from "@/lib/constants";
-import { useGSAP } from "@gsap/react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { CheckCircle2 } from "lucide-react";
-import Link from "next/link";
-import { useRef } from "react";
 
 gsap.registerPlugin(ScrollTrigger);
 

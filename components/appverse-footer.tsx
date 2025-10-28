@@ -1,11 +1,11 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
-import { isExternalRegistration, REGISTRATION_URL } from "@/lib/constants";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import { isExternalRegistration, REGISTRATION_URL } from "@/lib/constants";
 
 type FooterContent = {
   tagline: string;

@@ -43,17 +43,17 @@ export function Hero() {
       );
 
       tl.fromTo(
-        ".hero-heading span",
-        { y: 40, opacity: 0 },
-        { y: 0, opacity: 1, stagger: 0.15, duration: 0.8 },
-        "-=0.4"
-      );
-
-      tl.fromTo(
         ".hero-logo",
         { scale: 0.8, opacity: 0 },
         { scale: 1, opacity: 1, duration: 0.6 },
         "-=0.3"
+      );
+
+      tl.fromTo(
+        ".hero-heading span",
+        { y: 40, opacity: 0 },
+        { y: 0, opacity: 1, stagger: 0.15, duration: 0.8 },
+        "-=0.4"
       );
 
       tl.fromTo(
@@ -102,14 +102,7 @@ export function Hero() {
           <p className="hero-text mb-5 text-lime-300/80 text-sm uppercase tracking-[0.25em]">
             VIET MY VIBE CODE
           </p>
-          <h1 className="hero-heading mt-3 text-center font-extrabold text-4xl tracking-tight sm:text-5xl md:text-6xl">
-            <span className="block">CUỘC THI LẬP TRÌNH</span>
-            <span className="block text-lime-300 drop-shadow-[0_0_20px_rgba(132,204,22,0.35)]">
-              AI + CODING
-            </span>
-            <span className="block">CHO SINH VIÊN 2025</span>
-          </h1>
-          <div className="hero-logo mt-6 flex items-center justify-center">
+          <div className="hero-logo mb-5 flex items-center justify-center">
             <Image
               alt="Viet My Vibe Code logo"
               className="h-12 w-12"
@@ -118,6 +111,13 @@ export function Hero() {
               width={48}
             />
           </div>
+          <h1 className="hero-heading mt-3 text-center font-extrabold text-4xl tracking-tight sm:text-5xl md:text-6xl">
+            <span className="block">CUỘC THI LẬP TRÌNH</span>
+            <span className="block text-lime-300 drop-shadow-[0_0_20px_rgba(132,204,22,0.35)]">
+              AI + CODING
+            </span>
+            <span className="block">CHO SINH VIÊN 2025</span>
+          </h1>
           <p className="hero-description mt-4 max-w-2xl text-center text-base text-neutral-300 sm:text-lg">
             Thử thách kỹ năng lập trình và vận dụng AI để xây dựng giải pháp
             phần mềm hoàn chỉnh trong thời gian ngắn.

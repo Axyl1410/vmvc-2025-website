@@ -1,16 +1,5 @@
 "use client";
 
-import {
-  ChevronDown,
-  FileText,
-  HelpCircle,
-  Info,
-  Menu,
-  Tag,
-} from "lucide-react";
-import Image from "next/image";
-import Link from "next/link";
-import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import {
   Collapsible,
@@ -27,6 +16,17 @@ import {
 } from "@/components/ui/navigation-menu";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { isExternalRegistration, REGISTRATION_URL } from "@/lib/constants";
+import {
+  ChevronDown,
+  FileText,
+  HelpCircle,
+  Info,
+  Menu,
+  Tag,
+} from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
+import { useState } from "react";
 
 export function SiteHeader() {
   const [servicesOpen, setServicesOpen] = useState(false);

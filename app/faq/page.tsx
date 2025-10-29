@@ -1,6 +1,6 @@
-import type { Metadata } from "next";
 import { AppverseFooter } from "@/components/appverse-footer";
 import { SiteHeader } from "@/components/site-header";
+import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "FAQ | Viet My Vibe Code 2025",

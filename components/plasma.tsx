@@ -139,8 +139,11 @@ export const Plasma: React.FC<PlasmaProps> = ({
       // Reduce DPR more aggressively on mobile for big win
       dpr: Math.max(
         0.5,
-        Math.min(window.devicePixelRatio || 1, isMobileRef.current ? 1 : 2) *
-          (isIOSRef.current || isMobileRef.current ? 0.5 : 1)
+        Math.min(
+          window.devicePixelRatio || 1,
+          // Cap desktop DPR at 1.5 for huge performance win on HiDPI screens
+          isMobileRef.current ? 1 : 1.5
+        ) * (isIOSRef.current || isMobileRef.current ? 0.5 : 1)
       ),
     });
     rendererRef.current = renderer;
@@ -229,7 +232,7 @@ export const Plasma: React.FC<PlasmaProps> = ({
     let raf = 0;
     let lastTime = 0;
     let running = true;
-    const targetDelta = isMobileRef.current ? 50 : 33; // ~20fps mobile, ~30fps desktop
+    const targetDelta = isMobileRef.current ? 50 : 17;
     const t0 = performance.now();
 
     const loop = (t: number) => {

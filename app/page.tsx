@@ -1,10 +1,11 @@
-import Script from "next/script";
 import { AppverseFooter } from "@/components/appverse-footer";
 import { Features } from "@/components/features";
 import { Hero } from "@/components/hero";
 import { LogoMarquee } from "@/components/logo-marquee";
 import { Pricing } from "@/components/pricing";
+import { RegistrationForm } from "@/components/registration-form";
 import { SiteHeader } from "@/components/site-header";
+import Script from "next/script";
 
 // ✅ Force static generation for low TTFB
 export const dynamic = "force-static";
@@ -75,6 +76,7 @@ export default function Page() {
         <Features />
         <LogoMarquee />
         <Pricing />
+        <RegistrationForm />
         <AppverseFooter />
       </main>
 

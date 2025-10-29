@@ -1,7 +1,7 @@
-import type { Metadata } from "next";
-import Script from "next/script";
 import { AppverseFooter } from "@/components/appverse-footer";
 import { SiteHeader } from "@/components/site-header";
+import type { Metadata } from "next";
+import Script from "next/script";
 
 export const metadata: Metadata = {
   title: "Về Cuộc Thi | Viet My Vibe Code 2025",

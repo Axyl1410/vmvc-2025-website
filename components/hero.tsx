@@ -37,15 +37,15 @@ export function Hero() {
       });
 
       tl.fromTo(
-        ".hero-logo",
-        { y: -30, opacity: 0 },
-        { y: 0, opacity: 1, duration: 1 }
+        ".hero-heading span",
+        { y: 40, opacity: 0 },
+        { y: 0, opacity: 1, stagger: 0.15, duration: 0.8 }
       );
 
       tl.fromTo(
-        ".hero-heading span",
-        { y: 40, opacity: 0 },
-        { y: 0, opacity: 1, stagger: 0.15, duration: 0.8 },
+        ".hero-logo",
+        { y: -30, opacity: 0 },
+        { y: 0, opacity: 1, duration: 1 },
         "-=0.5"
       );
 
@@ -92,7 +92,14 @@ export function Hero() {
     <section className="relative isolate overflow-hidden" ref={containerRef}>
       <div className="container mx-auto px-4">
         <div className="flex flex-col items-center justify-center py-14 sm:py-20">
-          <div className="hero-logo mb-5 flex items-center gap-1">
+          <h1 className="hero-heading text-center font-extrabold text-4xl tracking-tight sm:text-5xl md:text-6xl">
+            <span className="block">CUỘC THI LẬP TRÌNH</span>
+            <span className="block text-lime-300 drop-shadow-[0_0_20px_rgba(132,204,22,0.35)]">
+              AI + CODING
+            </span>
+            <span className="block">CHO SINH VIÊN 2025</span>
+          </h1>
+          <div className="hero-logo mb-5 mt-6 flex items-center gap-1">
             <Image
               alt="Viet My Vibe Code logo"
               className="h-12 w-12"
@@ -104,13 +111,6 @@ export function Hero() {
               VIET MY VIBE CODE
             </p>
           </div>
-          <h1 className="hero-heading mt-3 text-center font-extrabold text-4xl tracking-tight sm:text-5xl md:text-6xl">
-            <span className="block">CUỘC THI LẬP TRÌNH</span>
-            <span className="block text-lime-300 drop-shadow-[0_0_20px_rgba(132,204,22,0.35)]">
-              AI + CODING
-            </span>
-            <span className="block">CHO SINH VIÊN 2025</span>
-          </h1>
           <p className="hero-description mt-4 max-w-2xl text-center text-base text-neutral-300 sm:text-lg">
             Thử thách kỹ năng lập trình và vận dụng AI để xây dựng giải pháp
             phần mềm hoàn chỉnh trong thời gian ngắn.

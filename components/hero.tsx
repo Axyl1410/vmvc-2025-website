@@ -1,11 +1,11 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
-import { isExternalRegistration, REGISTRATION_URL } from "@/lib/constants";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import Image from "next/image";
 import { useRef } from "react";
+import { Button } from "@/components/ui/button";
+import { isExternalRegistration, REGISTRATION_URL } from "@/lib/constants";
 
 const MOBILE_BREAKPOINT = 768;
 
@@ -92,18 +92,17 @@ export function Hero() {
     <section className="relative isolate overflow-hidden" ref={containerRef}>
       <div className="container mx-auto px-4">
         <div className="flex flex-col items-center justify-center py-14 sm:py-20">
-          <div className="hero-logo mb-5 flex flex-col items-center gap-2">
-            {/* <p className="font-bold text-lime-300/80 text-sm uppercase tracking-[0.25em]">
-              VIET MY VIBE CODE
-            </p> */}
+          <div className="hero-logo mb-5 flex items-center gap-1">
             <Image
-              alt="Cao đẳng Việt Mỹ - American Polytechnic College"
-              className="h-12 w-auto rounded-lg border-2 border-lime-300/40"
-              draggable={false}
+              alt="Viet My Vibe Code logo"
+              className="h-12 w-12"
               height={48}
-              src="/icons/cao-dang-viet-my.jpg"
-              width={200}
+              src="/icons/logo.png"
+              width={48}
             />
+            <p className="text-lime-300/80 text-sm uppercase tracking-[0.25em]">
+              VIET MY VIBE CODE
+            </p>
           </div>
           <h1 className="hero-heading mt-3 text-center font-extrabold text-4xl tracking-tight sm:text-5xl md:text-6xl">
             <span className="block">CUỘC THI LẬP TRÌNH</span>

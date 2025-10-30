@@ -1,11 +1,11 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
-import { isExternalRegistration, REGISTRATION_URL } from "@/lib/constants";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import { isExternalRegistration, REGISTRATION_URL } from "@/lib/constants";
 
 type FooterContent = {
   tagline: string;
@@ -39,7 +39,7 @@ export function AppverseFooter() {
   return (
     <section className="text-white">
       {/* Register CTA */}
-      {/* <div className="container mx-auto px-4 pt-12 sm:pt-16" id="register">
+      <div className="container mx-auto px-4 pt-12 sm:pt-16" id="register">
         <div className="flex justify-center">
           <Button
             asChild
@@ -55,7 +55,7 @@ export function AppverseFooter() {
             </Link>
           </Button>
         </div>
-      </div> */}
+      </div>
 
       {/* Competition Info */}
       <div className="container mx-auto px-4 py-12 sm:py-16">

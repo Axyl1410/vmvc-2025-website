@@ -1,6 +1,6 @@
 export function RegistrationFormSection() {
   return (
-    <section className="mt-16">
+    <section className="mt-16" id="register">
       <div className="container mx-auto max-w-4xl px-4">
         <h2 className="mb-4 text-center font-extrabold text-2xl text-white tracking-tight sm:text-3xl">
           Đăng ký tham gia

@@ -1,11 +1,11 @@
 "use client";
 
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Star } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -24,6 +24,7 @@ const defaultContent: FeaturesContent = {
 export function Features() {
   const [content, setContent] = useState<FeaturesContent>(defaultContent);
   const sectionRef = useRef<HTMLElement>(null);
+  const animationPlayedRef = useRef(false);
 
   useEffect(() => {
     // Load content from localStorage
@@ -42,6 +43,11 @@ export function Features() {
 
   useGSAP(
     () => {
+      // ✅ Only run animations once
+      if (animationPlayedRef.current) {
+        return;
+      }
+
       // Check if animations should run (disable on small screens for better performance)
       const isMobile = window.innerWidth < MOBILE_BREAKPOINT;
 
@@ -52,6 +58,7 @@ export function Features() {
           y: 0,
           x: 0,
         });
+        animationPlayedRef.current = true;
         return;
       }
 
@@ -69,7 +76,10 @@ export function Features() {
         scrollTrigger: {
           trigger: ".features-heading",
           start: "top 80%",
-          toggleActions: "play none none reverse",
+          once: true,
+        },
+        onComplete: () => {
+          animationPlayedRef.current = true;
         },
       });
 
@@ -83,7 +93,7 @@ export function Features() {
         scrollTrigger: {
           trigger: ".features-grid",
           start: "top 80%",
-          toggleActions: "play none none reverse",
+          once: true,
         },
       });
 
@@ -97,7 +107,7 @@ export function Features() {
         scrollTrigger: {
           trigger: ".features-grid",
           start: "top 70%",
-          toggleActions: "play none none reverse",
+          once: true,
         },
       });
     },

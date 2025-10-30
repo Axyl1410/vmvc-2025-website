@@ -1,11 +1,5 @@
 "use client";
 
-import { useGSAP } from "@gsap/react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { CheckCircle2 } from "lucide-react";
-import Link from "next/link";
-import { useRef } from "react";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -14,6 +8,12 @@ import {
   CardHeader,
 } from "@/components/ui/card";
 import { isExternalRegistration, REGISTRATION_URL } from "@/lib/constants";
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { CheckCircle2 } from "lucide-react";
+import Link from "next/link";
+import { useRef } from "react";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -38,9 +38,15 @@ function FeatureItem({ text, muted = false }: Feature) {
 
 export function Pricing() {
   const sectionRef = useRef<HTMLElement>(null);
+  const animationPlayedRef = useRef(false);
 
   useGSAP(
     () => {
+      // ✅ Only run animations once
+      if (animationPlayedRef.current) {
+        return;
+      }
+
       // Check if animations should run (disable on small screens)
       const isMobile = window.innerWidth < MOBILE_BREAKPOINT;
 
@@ -54,6 +60,7 @@ export function Pricing() {
             scale: 1,
           }
         );
+        animationPlayedRef.current = true;
         return;
       }
 
@@ -75,7 +82,7 @@ export function Pricing() {
         scrollTrigger: {
           trigger: ".pricing-header",
           start: "top 80%",
-          toggleActions: "play none none reverse",
+          once: true,
         },
       });
 
@@ -89,7 +96,7 @@ export function Pricing() {
         scrollTrigger: {
           trigger: ".pricing-header",
           start: "top 80%",
-          toggleActions: "play none none reverse",
+          once: true,
         },
       });
 
@@ -103,7 +110,7 @@ export function Pricing() {
         scrollTrigger: {
           trigger: ".pricing-header",
           start: "top 80%",
-          toggleActions: "play none none reverse",
+          once: true,
         },
       });
 
@@ -117,7 +124,7 @@ export function Pricing() {
         scrollTrigger: {
           trigger: ".pricing-header",
           start: "top 80%",
-          toggleActions: "play none none reverse",
+          once: true,
         },
       });
 
@@ -131,7 +138,7 @@ export function Pricing() {
         scrollTrigger: {
           trigger: ".pricing-grid",
           start: "top 80%",
-          toggleActions: "play none none reverse",
+          once: true,
         },
       });
 
@@ -144,7 +151,7 @@ export function Pricing() {
         scrollTrigger: {
           trigger: ".evaluation-section",
           start: "top 80%",
-          toggleActions: "play none none reverse",
+          once: true,
         },
       });
 
@@ -158,7 +165,10 @@ export function Pricing() {
         scrollTrigger: {
           trigger: ".evaluation-grid",
           start: "top 80%",
-          toggleActions: "play none none reverse",
+          once: true,
+        },
+        onComplete: () => {
+          animationPlayedRef.current = true;
         },
       });
     },

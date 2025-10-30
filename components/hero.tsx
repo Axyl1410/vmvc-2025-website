@@ -1,19 +1,26 @@
 "use client";
 
+import { Button } from "@/components/ui/button";
+import { isExternalRegistration, REGISTRATION_URL } from "@/lib/constants";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import Image from "next/image";
-import { useRef } from "react";
-import { Button } from "@/components/ui/button";
-import { isExternalRegistration, REGISTRATION_URL } from "@/lib/constants";
+import { useEffect, useRef } from "react";
 
 const MOBILE_BREAKPOINT = 768;
 
 export function Hero() {
   const containerRef = useRef<HTMLDivElement>(null);
+  const animationPlayedRef = useRef(false);
+  const timelineRef = useRef<gsap.core.Timeline | null>(null);
 
   useGSAP(
     () => {
+      // ✅ Prevent animation from running multiple times
+      if (animationPlayedRef.current) {
+        return;
+      }
+
       // Check if animations should run
       const isMobile = window.innerWidth < MOBILE_BREAKPOINT;
 
@@ -28,13 +35,20 @@ export function Hero() {
             clearProps: "all",
           }
         );
+        animationPlayedRef.current = true;
         return;
       }
 
       // Desktop animations with timeline
       const tl = gsap.timeline({
         defaults: { ease: "power3.out", duration: 0.8 },
+        onComplete: () => {
+          animationPlayedRef.current = true;
+          timelineRef.current = null;
+        },
       });
+
+      timelineRef.current = tl;
 
       tl.fromTo(
         ".hero-logo",
@@ -71,6 +85,17 @@ export function Hero() {
       );
     },
     { scope: containerRef, dependencies: [] }
+  );
+
+  // ✅ Cleanup on unmount to prevent memory leaks
+  useEffect(
+    () => () => {
+      if (timelineRef.current) {
+        timelineRef.current.kill();
+        timelineRef.current = null;
+      }
+    },
+    []
   );
 
   const buttonNew = (

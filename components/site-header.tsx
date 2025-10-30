@@ -1,16 +1,5 @@
 "use client";
 
-import {
-  ChevronDown,
-  FileText,
-  HelpCircle,
-  Info,
-  Menu,
-  Tag,
-} from "lucide-react";
-import Image from "next/image";
-import Link from "next/link";
-import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import {
   Collapsible,
@@ -27,6 +16,17 @@ import {
 } from "@/components/ui/navigation-menu";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { isExternalRegistration, REGISTRATION_URL } from "@/lib/constants";
+import {
+  ChevronDown,
+  FileText,
+  HelpCircle,
+  Info,
+  Menu,
+  Tag,
+} from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
+import { useState } from "react";
 
 export function SiteHeader() {
   const [servicesOpen, setServicesOpen] = useState(false);
@@ -70,6 +70,13 @@ export function SiteHeader() {
               className="h-12 w-12"
               height={48}
               src="/icons/logo.png"
+              width={48}
+            />
+            <Image
+              alt="Viet My Vibe Code logo white"
+              className="h-12 w-12"
+              height={48}
+              src="/icons/logo-white.png"
               width={48}
             />
             <span className="font-semibold text-white tracking-wide">
@@ -164,6 +171,13 @@ export function SiteHeader() {
                     className="h-6 w-6"
                     height={24}
                     src="/icons/logo.png"
+                    width={24}
+                  />
+                  <Image
+                    alt="Viet My Vibe Code logo white"
+                    className="mr-2 h-6 w-6"
+                    height={24}
+                    src="/icons/logo-white.png"
                     width={24}
                   />
                   <span className="font-semibold text-lg text-white tracking-wide">

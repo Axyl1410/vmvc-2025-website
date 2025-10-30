@@ -65,20 +65,22 @@ export function SiteHeader() {
         <div className="liquid-glass-header flex h-14 items-center justify-between rounded-full px-6">
           {/* Brand Logo */}
           <Link className="flex items-center" href="/">
-            <Image
-              alt="Viet My Vibe Code logo"
-              className="h-12 w-12"
-              height={48}
-              src="/icons/logo.png"
-              width={48}
-            />
-            <Image
-              alt="Viet My Vibe Code logo white"
-              className="h-12 w-12"
-              height={48}
-              src="/icons/logo-white.png"
-              width={48}
-            />
+            <div className="flex items-center">
+              <Image
+                alt="Viet My Vibe Code logo"
+                className="h-12 w-12"
+                height={48}
+                src="/icons/logo.png"
+                width={48}
+              />
+              <Image
+                alt="Viet My Vibe Code logo white"
+                className="h-12 w-12"
+                height={48}
+                src="/icons/logo-white.png"
+                width={48}
+              />
+            </div>
             <span className="font-semibold text-white tracking-wide">
               VMVC 2025
             </span>
@@ -166,20 +168,22 @@ export function SiteHeader() {
               >
                 {/* Brand Header */}
                 <div className="flex items-center gap-1.5 border-gray-800 border-b px-4 py-4">
-                  <Image
-                    alt="Viet My Vibe Code logo"
-                    className="h-6 w-6"
-                    height={24}
-                    src="/icons/logo.png"
-                    width={24}
-                  />
-                  <Image
-                    alt="Viet My Vibe Code logo white"
-                    className="mr-2 h-6 w-6"
-                    height={24}
-                    src="/icons/logo-white.png"
-                    width={24}
-                  />
+                  <div className="flex items-center">
+                    <Image
+                      alt="Viet My Vibe Code logo"
+                      className="h-6 w-6"
+                      height={24}
+                      src="/icons/logo.png"
+                      width={24}
+                    />
+                    <Image
+                      alt="Viet My Vibe Code logo white"
+                      className="mr-2 h-6 w-6"
+                      height={24}
+                      src="/icons/logo-white.png"
+                      width={24}
+                    />
+                  </div>
                   <span className="font-semibold text-lg text-white tracking-wide">
                     VMVC 2025
                   </span>

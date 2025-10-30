@@ -119,15 +119,13 @@ export function Hero() {
         <div className="flex flex-col items-center justify-center py-14 sm:py-20">
           <div className="hero-logo mb-5 flex items-center gap-1">
             <Image
-              alt="Viet My Vibe Code logo"
-              className="h-12 w-12"
+              alt="Cao đẳng Việt Mỹ - American Polytechnic College"
+              className="h-12 w-auto rounded-lg border-2"
+              draggable={false}
               height={48}
-              src="/icons/logo.png"
-              width={48}
+              src="/icons/image.png"
+              width={200}
             />
-            <p className="text-lime-300/80 text-sm uppercase tracking-[0.25em]">
-              VIET MY VIBE CODE
-            </p>
           </div>
           <h1 className="hero-heading mt-3 text-center font-extrabold text-4xl tracking-tight sm:text-5xl md:text-6xl">
             <span className="block">CUỘC THI LẬP TRÌNH</span>

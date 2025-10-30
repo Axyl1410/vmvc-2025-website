@@ -5,6 +5,7 @@ import { LogoMarquee } from "@/components/logo-marquee";
 import { Pricing } from "@/components/pricing";
 import { RegistrationFormSection } from "@/components/registration-form";
 import { SiteHeader } from "@/components/site-header";
+import { Timeline } from "@/components/timeline";
 import Script from "next/script";
 
 // ✅ Force static generation for low TTFB
@@ -76,6 +77,7 @@ export default function Page() {
         <Features />
         <LogoMarquee />
         <Pricing />
+        <Timeline />
         <RegistrationFormSection />
         <AppverseFooter />
       </main>

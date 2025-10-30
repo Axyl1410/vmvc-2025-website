@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { AppverseFooter } from "@/components/appverse-footer";
 import { SiteHeader } from "@/components/site-header";
 import { RegistrationFormSection } from "@/components/registration-form";
+import { Timeline } from "@/components/timeline";
 
 export const metadata: Metadata = {
   title: "Thể Lệ Cuộc Thi | Viet My Vibe Code 2025",
@@ -311,6 +312,7 @@ export default function CompetitionRulesPage() {
           </div>
         </div>
       </section>
+      <Timeline />
       <RegistrationFormSection />
       <AppverseFooter />
     </>

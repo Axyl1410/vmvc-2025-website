@@ -14,6 +14,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { CheckCircle2 } from "lucide-react";
 import Link from "next/link";
 import { useRef } from "react";
+import StarBorder from "./StarBorder";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -208,20 +209,22 @@ export function Pricing() {
             giấy chứng nhận.
           </p>
           <div className="pricing-button mt-6">
-            <Button
-              asChild
-              className="rounded-full px-5 text-neutral-900 hover:brightness-95"
-              style={{ backgroundColor: "#f2f2f2" }}
-            >
-              <Link
-                href={REGISTRATION_URL}
-                {...(isExternalRegistration
-                  ? { target: "_blank", rel: "noopener noreferrer" }
-                  : {})}
+            <StarBorder>
+              <Button
+                asChild
+                className="rounded-full px-5 text-neutral-900 hover:brightness-95"
+                style={{ backgroundColor: "#f2f2f2" }}
               >
-                Đăng Ký Tham Gia
-              </Link>
-            </Button>
+                <Link
+                  href={REGISTRATION_URL}
+                  {...(isExternalRegistration
+                    ? { target: "_blank", rel: "noopener noreferrer" }
+                    : {})}
+                >
+                  Đăng Ký Tham Gia
+                </Link>
+              </Button>
+            </StarBorder>
           </div>
         </div>
 

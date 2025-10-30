@@ -1,5 +1,6 @@
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import StarBorder from "./StarBorder";
 
 export function LogoSection() {
   return (
@@ -127,10 +128,14 @@ export function LogoSection() {
           </div>
 
           {/* CTA Button */}
-          <Button className="group rounded-full bg-gradient-to-r from-purple-600 to-purple-500 px-8 py-3 text-white shadow-lg shadow-purple-500/25 transition-all hover:scale-105 hover:shadow-purple-500/40 hover:shadow-xl">
-            Try now for free
-            <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
-          </Button>
+          <StarBorder>
+            <Button asChild className="group rounded-full bg-gradient-to-r from-purple-600 to-purple-500 px-8 py-3 text-white shadow-lg shadow-purple-500/25 transition-all hover:scale-105 hover:shadow-purple-500/40 hover:shadow-xl">
+              <a href="#register">
+                Try now for free
+                <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+              </a>
+            </Button>
+          </StarBorder>
         </div>
       </div>
     </section>

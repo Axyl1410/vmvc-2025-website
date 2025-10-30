@@ -1,3 +1,4 @@
+import Plasma from "@/components/plasma";
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import type { Metadata } from "next";
@@ -5,7 +6,6 @@ import { Inter } from "next/font/google";
 import Script from "next/script";
 import type React from "react";
 import { Suspense } from "react";
-import Plasma from "@/components/plasma";
 import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"], display: "swap" });
@@ -72,9 +72,9 @@ export default function RootLayout({
               color="#8b5cf6"
               direction="forward"
               mouseInteractive={true}
-              opacity={0.4}
-              scale={1.5}
-              speed={0.8}
+              opacity={0.8}
+              scale={1.1}
+              speed={0.6}
             />
           </div>
           <div className="relative z-10">{children}</div>

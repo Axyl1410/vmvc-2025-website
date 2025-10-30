@@ -25,17 +25,42 @@ export function Hero() {
       const isMobile = window.innerWidth < MOBILE_BREAKPOINT;
 
       if (isMobile) {
-        // On mobile, just ensure everything is visible immediately
-        gsap.set(
-          ".hero-logo, .hero-heading span, .hero-description, .hero-button, .hero-card",
-          {
-            opacity: 1,
-            y: 0,
-            scale: 1,
-            clearProps: "all",
-          }
-        );
-        animationPlayedRef.current = true;
+        // Mobile: chạy animation ngắn gọn nhẹ từng bước
+        const tl = gsap.timeline({
+          defaults: { ease: "power2.out", duration: 0.6 },
+          onComplete: () => {
+            animationPlayedRef.current = true;
+            timelineRef.current = null;
+          },
+        });
+
+        timelineRef.current = tl;
+
+        tl.fromTo(".hero-logo", { y: -20, opacity: 0 }, { y: 0, opacity: 1 })
+          .fromTo(
+            ".hero-heading span",
+            { y: 30, opacity: 0 },
+            { y: 0, opacity: 1, stagger: 0.1, duration: 0.5 },
+            "-=0.3"
+          )
+          .fromTo(
+            ".hero-description",
+            { y: 15, opacity: 0 },
+            { y: 0, opacity: 1, duration: 0.4 },
+            "-=0.2"
+          )
+          .fromTo(
+            ".hero-button",
+            { scale: 0.9, opacity: 0 },
+            { scale: 1, opacity: 1, duration: 0.4 },
+            "-=0.1"
+          )
+          .fromTo(
+            ".hero-card",
+            { y: 40, opacity: 0 },
+            { y: 0, opacity: 1, stagger: 0.08, duration: 0.5 },
+            "-=0.2"
+          );
         return;
       }
 
@@ -123,13 +148,14 @@ export function Hero() {
               className="h-12 w-auto rounded-lg border-2"
               draggable={false}
               height={48}
+              priority
               src="/icons/image.png"
               width={200}
             />
           </div>
           <h1 className="hero-heading mt-3 text-center font-extrabold text-4xl tracking-tight sm:text-5xl md:text-6xl">
             <span className="block">CUỘC THI LẬP TRÌNH</span>
-            <span className="block text-lime-300 drop-shadow-[0_0_20px_rgba(132,204,22,0.35)]">
+            <span className="block animate-gradient bg-[length:200%_200%] bg-gradient-to-r from-lime-300 via-purple-400 to-lime-300 bg-clip-text text-transparent drop-shadow-[0_0_30px_rgba(132,204,22,0.4)]">
               AI + CODING
             </span>
             <span className="block">CHO SINH VIÊN 2025</span>

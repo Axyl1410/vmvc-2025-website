@@ -6,6 +6,7 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import Image from "next/image";
 import { useEffect, useRef } from "react";
+import StarBorder from "./StarBorder";
 
 const MOBILE_BREAKPOINT = 768;
 
@@ -124,18 +125,20 @@ export function Hero() {
   );
 
   const buttonNew = (
-    <Button
-      asChild
-      className="rounded-full bg-lime-400 px-6 text-black hover:bg-lime-300"
-    >
-      <a
-        href={REGISTRATION_URL}
-        rel="noopener noreferrer"
-        {...(isExternalRegistration ? { target: "_blank" } : {})}
+    <StarBorder>
+      <Button
+        asChild
+        className="rounded-full bg-lime-400 px-6 text-black hover:bg-lime-500"
       >
-        Đăng Ký Ngay
-      </a>
-    </Button>
+        <a
+          href={REGISTRATION_URL}
+          rel="noopener noreferrer"
+          {...(isExternalRegistration ? { target: "_blank" } : {})}
+        >
+          Đăng Ký Ngay
+        </a>
+      </Button>{" "}
+    </StarBorder>
   );
 
   return (

@@ -3,7 +3,7 @@ import { Features } from "@/components/features";
 import { Hero } from "@/components/hero";
 import { LogoMarquee } from "@/components/logo-marquee";
 import { Pricing } from "@/components/pricing";
-import { RegistrationFormSection } from "@/components/registration-form";
+import { QualifiedTeamsSection } from "@/components/qualified-teams-section";
 import { SiteHeader } from "@/components/site-header";
 import { Timeline } from "@/components/timeline";
 import Script from "next/script";
@@ -78,7 +78,7 @@ export default function Page() {
         <LogoMarquee />
         <Pricing />
         <Timeline />
-        <RegistrationFormSection />
+        <QualifiedTeamsSection />
         <AppverseFooter />
       </main>
 
